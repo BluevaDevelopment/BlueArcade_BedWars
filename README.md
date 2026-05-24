@@ -1,7 +1,7 @@
 # BlueArcade - Bed Wars
 
 This resource is a **BlueArcade 3 module** and requires the core plugin to run.
-Get BlueArcade 3 here: https://store.blueva.net/resources/resource/1-blue-arcade/
+Get BlueArcade 3 here: https://blueva.net/store/blue-arcade
 
 ## Description
 Protect your bed, destroy enemy beds, and be the last team standing. Collect resources from spawners, buy items and upgrades from shop NPCs, and eliminate all opposing teams.
@@ -19,16 +19,24 @@ This is a **Minigame**: it is designed for standalone arenas, but it can also be
 - Arena management tools and setup commands.
 
 ## Features
-- Team size and team count configuration (supports solo mode with team size 1). Up to 8 teams supported.
-- Per-team bed placement and destruction tracking.
-- Resource spawners (iron, gold, diamond, emerald) with configurable intervals and per-type holograms with live countdown.
-- Shop NPC villagers (item shop and team upgrades) that spawn on game start and despawn on game end.
-- Final kill system: players without a bed are permanently eliminated.
-- Block protection: only player-placed blocks can be broken (beds are an exception for enemies).
-- Respawn on death with configurable delay (only if team bed is intact).
-- Teams with no players assigned are automatically excluded from scoreboards and win conditions.
-- Timed generator upgrade events (Hypixel-style): configurable timed boosts for diamond and emerald spawners.
-- Dynamic scoreboards supporting 2 to 8 active teams, with per-team bed status and "YOU" marker.
+- Full Bed Wars item shop with configurable categories, prices, currencies, tiers, permanent purchases, auto-equipped gear, enchantments, potion effects, and custom purchase actions.
+- Java Quick Buy menu with per-player defaults, shift-click add/remove behavior, configurable slots, and live affordability/status feedback.
+- Complete Java and Bedrock menu support: Java chest menus plus Bedrock Simple Form menus for item shop categories, purchases, team upgrades, and vote settings.
+- Full shop content out of the box: blocks, melee weapons, armor, tools, ranged items, potions, and utilities such as golden apples, bedbugs, dream defenders, fireballs, TNT, ender pearls, water buckets, bridge eggs, magic milk, sponges, and towers.
+- Team upgrade shop with tiered diamond upgrades for sharpness, protection, haste, and forge/generator speed.
+- Shop NPC villagers for item shop and team upgrades, spawned only during the match and removed during cleanup.
+- Iron, gold, diamond, and emerald generators with configurable intervals, optional hologram countdowns, and timed generator upgrade events.
+- Per-team beds, bed destruction announcements, respawn while the bed is alive, and final-kill elimination once a team bed is destroyed.
+- Solo and team modes through configurable team count and team size, with support for up to 8 active teams.
+- Bed Wars combat rules: teammate damage prevention, kill credit handling, kill regeneration, configurable respawn delay, and spawn fall-damage protection.
+- Bed Wars block rules: player-placed block tracking, protected map blocks, enemy-bed exceptions, TNT/fireball interaction with placed blocks, and arena region regeneration.
+- Special item handling for fireballs, TNT placement, bridge eggs, magic milk, bedbugs, dream defenders, sponges, and compact wool towers.
+- Team-colored starting loadouts, permanent armor/tool tracking, and protection against dropping or moving permanent shop items incorrectly.
+- Arena-scoped utility inventories, including team-aware ender chest handling and configurable chest titles.
+- Waiting-lobby vote item and vote menus for hearts, time, and weather.
+- Cosmetic spawn cages integrated with the BlueArcade store, including unlockable cage materials and random selection support.
+- Dynamic scoreboards for 2 to 8 active teams, including bed status and the player team marker.
+- Stats, placeholders, and achievements for Bed Wars progression.
 
 ## Arena setup
 ### Common steps
