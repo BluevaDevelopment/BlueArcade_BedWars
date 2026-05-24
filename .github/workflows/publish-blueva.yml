@@ -64,7 +64,7 @@ jobs:
         id: jars
         shell: bash
         run: |
-          MC_JAR=$(find bridge-race-minecraft/target -maxdepth 1 -type f -name "*.jar" ! -name "*sources.jar" ! -name "*javadoc.jar" | head -n 1)
+          MC_JAR=$(find /target -maxdepth 1 -type f -name "*.jar" ! -name "*sources.jar" ! -name "*javadoc.jar" | head -n 1)
 
           if [ -z "$MC_JAR" ]; then
             echo "Minecraft JAR not found"
@@ -82,6 +82,6 @@ jobs:
             -F "internal_id=$BLUEVA_INTERNAL_ID" \
             -F "channel_id=$BLUEVA_CHANNEL_ID_MINECRAFT" \
             -F "version=${{ steps.version.outputs.version }}" \
-            -F "title=Bridge Race ${{ steps.version.outputs.version }}" \
+            -F "title=Bed Wars ${{ steps.version.outputs.version }}" \
             -F "changelog=${{ steps.changelog.outputs.content }}" \
             -F "file=@${{ steps.jars.outputs.mc_jar }}"
