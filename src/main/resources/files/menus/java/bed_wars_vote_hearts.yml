@@ -1,0 +1,55 @@
+file_version: 1
+menu_name: '<red>Vote hearts</red>'
+menu_size: 27
+type: CHEST
+
+items:
+  hearts_10:
+    slot: 10
+    name: '<white>10 hearts</white>'
+    item_stack:
+      material: REDSTONE
+      amount: 1
+    lore:
+      - '<gray>Votes:</gray> <white>{votes_hearts_10}</white>'
+      - '<gray>Classic Bed Wars health.</gray>'
+      - '<green>Click to vote</green>'
+    actions:
+      - 'MODULE;bed_wars;vote hearts 10'
+
+  hearts_20:
+    slot: 13
+    name: '<yellow>20 hearts</yellow>'
+    item_stack:
+      material: GOLDEN_APPLE
+      amount: 1
+    lore:
+      - '<gray>Votes:</gray> <white>{votes_hearts_20}</white>'
+      - '<gray>Longer fights and more clutch plays.</gray>'
+      - '<green>Click to vote</green>'
+    actions:
+      - 'MODULE;bed_wars;vote hearts 20'
+
+  hearts_30:
+    slot: 16
+    name: '<light_purple>30 hearts</light_purple>'
+    item_stack:
+      material: ENCHANTED_GOLDEN_APPLE
+      amount: 1
+    lore:
+      - '<gray>Votes:</gray> <white>{votes_hearts_30}</white>'
+      - '<gray>Extra tanky battles.</gray>'
+      - '<green>Click to vote</green>'
+    actions:
+      - 'MODULE;bed_wars;vote hearts 30'
+
+  back:
+    slot: 22
+    name: '<gray>Back</gray>'
+    item_stack:
+      material: ARROW
+      amount: 1
+    lore:
+      - '<gray>Return to settings.</gray>'
+    actions:
+      - 'OPEN;bed_wars_vote_main'

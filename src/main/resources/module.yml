@@ -1,0 +1,12 @@
+name: Bed Wars
+id: bed_wars
+version: ${revision}
+type: MINIGAME
+api-version: 3.3
+main: net.blueva.arcade.modules.bed_wars.BedWarsModule
+
+authors:
+  - Blueva
+  - Whiron
+
+description: "Protect your bed, destroy enemy beds, and be the last team standing."

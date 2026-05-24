@@ -1,0 +1,213 @@
+package net.blueva.arcade.modules.bed_wars.support.combat;
+
+import net.blueva.arcade.api.ModuleAPI;
+import net.blueva.arcade.api.config.CoreConfigAPI;
+import net.blueva.arcade.api.config.ModuleConfigAPI;
+import net.blueva.arcade.api.game.GameContext;
+import net.blueva.arcade.api.stats.StatsAPI;
+import net.blueva.arcade.api.visuals.VisualEffectsAPI;
+import net.blueva.arcade.modules.bed_wars.game.BedWarsGame;
+import net.blueva.arcade.modules.bed_wars.support.loadout.PlayerLoadoutService;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class CombatService {
+
+    private final ModuleConfigAPI moduleConfig;
+    private final CoreConfigAPI coreConfig;
+    private final StatsAPI statsAPI;
+    private final BedWarsGame game;
+    private final PlayerLoadoutService loadoutService;
+
+    public CombatService(ModuleConfigAPI moduleConfig,
+                         CoreConfigAPI coreConfig,
+                         StatsAPI statsAPI,
+                         BedWarsGame game,
+                         PlayerLoadoutService loadoutService) {
+        this.moduleConfig = moduleConfig;
+        this.coreConfig = coreConfig;
+        this.statsAPI = statsAPI;
+        this.game = game;
+        this.loadoutService = loadoutService;
+    }
+
+    public void handleKillCredit(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                 Player killer) {
+        if (context == null || killer == null) {
+            return;
+        }
+
+        if (statsAPI != null) {
+            statsAPI.addModuleStat(killer, game.getModuleInfo().getId(), "kills", 1);
+        }
+
+        game.addPlayerKill(context, killer);
+        game.healKiller(context, killer);
+    }
+
+    public void handleElimination(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                  Player target,
+                                  Player killer) {
+        if (context == null || target == null) {
+            return;
+        }
+
+        if (context.getSpectators().contains(target) || target.getGameMode() == GameMode.SPECTATOR) {
+            return;
+        }
+
+        Location deathLocation = target.getLocation();
+        playVisualEffects(target, killer, deathLocation);
+
+        boolean canRespawn = game.canPlayerRespawn(context, target);
+
+        if (canRespawn) {
+            broadcastDeathMessage(context, target, killer);
+        } else {
+            broadcastFinalKillMessage(context, target, killer);
+            if (killer != null && statsAPI != null) {
+                statsAPI.addModuleStat(killer, game.getModuleInfo().getId(), "final_kills", 1);
+            }
+        }
+
+        game.addPlayerDeath(context, target);
+        if (statsAPI != null) {
+            statsAPI.addModuleStat(target, game.getModuleInfo().getId(), "deaths", 1);
+        }
+
+        target.getInventory().clear();
+        sendDeathTitle(context, target, killer != null);
+
+        if (canRespawn) {
+            scheduleRespawn(context, target);
+        } else {
+            target.setGameMode(GameMode.SPECTATOR);
+            context.eliminatePlayer(target, moduleConfig.getStringFrom("language.yml", "messages.eliminated"));
+            game.checkForVictory(context);
+        }
+    }
+
+    private void scheduleRespawn(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                 Player player) {
+        int delay = moduleConfig.getInt("game.respawn_delay_seconds", 3);
+        if (delay <= 0) {
+            delay = 1;
+        }
+
+        player.setGameMode(GameMode.SPECTATOR);
+        String taskId = "arena_" + context.getArenaId() + "_respawn_" + player.getUniqueId();
+        context.getSchedulerAPI().runLater(taskId, () -> {
+            if (!player.isOnline() || !context.isPlayerPlaying(player)) {
+                return;
+            }
+            game.respawnPlayer(context, player);
+        }, delay * 20L);
+    }
+
+    private void playVisualEffects(Player target, Player killer, Location deathLocation) {
+        VisualEffectsAPI visualEffectsAPI = ModuleAPI.getVisualEffectsAPI();
+        if (visualEffectsAPI == null) {
+            return;
+        }
+        if (deathLocation != null) {
+            visualEffectsAPI.playDeathEffect(target, deathLocation);
+        } else {
+            visualEffectsAPI.playDeathEffect(target);
+        }
+        if (killer != null) {
+            visualEffectsAPI.playKillEffect(killer);
+        }
+    }
+
+    private void sendDeathTitle(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                Player target,
+                                boolean killed) {
+        if (killed) {
+            context.getSoundsAPI().play(target, coreConfig.getSound("sounds.in_game.dead"));
+            context.getTitlesAPI().sendRaw(target,
+                    moduleConfig.getStringFrom("language.yml", "titles.you_died.title"),
+                    moduleConfig.getStringFrom("language.yml", "titles.you_died.subtitle"),
+                    0, 80, 20);
+            return;
+        }
+
+        context.getSoundsAPI().play(target, coreConfig.getSound("sounds.in_game.classified"));
+        context.getTitlesAPI().sendRaw(target,
+                moduleConfig.getStringFrom("language.yml", "titles.classified.title"),
+                moduleConfig.getStringFrom("language.yml", "titles.classified.subtitle"),
+                0, 80, 20);
+    }
+
+    private void broadcastDeathMessage(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                       Player victim,
+                                       Player killer) {
+        if (context.getSpectators().contains(victim)) {
+            return;
+        }
+
+        String path = killer != null ? "messages.deaths.killed_by_player" : "messages.deaths.generic";
+        String message = getRandomMessage(path);
+
+        if (message == null) {
+            return;
+        }
+
+        message = message
+                .replace("{victim}", victim.getName())
+                .replace("{killer}", killer != null ? killer.getName() : "");
+
+        for (Player player : context.getPlayers()) {
+            context.getMessagesAPI().sendRaw(player, message);
+        }
+    }
+
+    private void broadcastFinalKillMessage(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                           Player victim,
+                                           Player killer) {
+        if (context.getSpectators().contains(victim)) {
+            return;
+        }
+
+        String path = killer != null ? "messages.deaths.final_kill" : "messages.deaths.final_kill_generic";
+        String message = getRandomMessage(path);
+
+        if (message == null) {
+            broadcastDeathMessage(context, victim, killer);
+            return;
+        }
+
+        message = message
+                .replace("{victim}", victim.getName())
+                .replace("{killer}", killer != null ? killer.getName() : "");
+
+        for (Player player : context.getPlayers()) {
+            context.getMessagesAPI().sendRaw(player, message);
+        }
+    }
+
+    private String getRandomMessage(String path) {
+        List<String> messages = moduleConfig.getStringListFrom("language.yml", path);
+        if (messages == null || messages.isEmpty()) {
+            return null;
+        }
+
+        int index = ThreadLocalRandom.current().nextInt(messages.size());
+        return messages.get(index);
+    }
+
+    public void healKiller(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                           Player killer) {
+        loadoutService.handleKillRegeneration(context, killer);
+        context.getSoundsAPI().play(killer, coreConfig.getSound("sounds.in_game.respawn"));
+    }
+}
