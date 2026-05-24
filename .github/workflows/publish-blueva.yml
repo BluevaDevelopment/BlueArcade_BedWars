@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 30
 
     env:
-      BLUEVA_UPDATE_URL: "https://store.blueva.net/index.php?route=/api/v2/resources/update"
+      BLUEVA_UPDATE_URL: "https://blueva.net/api/v2/resources/update"
       BLUEVA_INTERNAL_ID: "bed_wars"
       BLUEVA_CHANNEL_ID_MINECRAFT: "minecraft"
 
@@ -77,7 +77,7 @@ jobs:
       - name: Publish Minecraft release
         shell: bash
         run: |
-          curl -X POST "$BLUEVA_UPDATE_URL" \
+          curl --fail-with-body -X POST "$BLUEVA_UPDATE_URL" \
             -H "Authorization: Bearer ${{ secrets.BLUEVA_API_KEY }}" \
             -F "internal_id=$BLUEVA_INTERNAL_ID" \
             -F "channel_id=$BLUEVA_CHANNEL_ID_MINECRAFT" \
