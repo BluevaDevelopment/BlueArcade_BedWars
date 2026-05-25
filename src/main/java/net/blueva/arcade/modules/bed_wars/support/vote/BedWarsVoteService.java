@@ -32,6 +32,7 @@ import java.util.Set;
 public class BedWarsVoteService {
 
     private static final String VOTE_PERMISSION_BASE = "bluearcade.bedwars.votes";
+    private static final String WAITING_ITEM_ID = "bed_wars_vote_settings";
     public static final String COMMAND = "bedwarsvote";
     public static final String MENU_MAIN = "vote_main";
     public static final String MENU_HEARTS = "vote_hearts";
@@ -109,7 +110,11 @@ public class BedWarsVoteService {
     }
 
     public void registerWaitingItem() {
-        if (itemAPI == null || moduleConfig == null || !moduleConfig.getBoolean("waiting_items.vote_settings.enabled", true)) {
+        if (itemAPI == null || moduleConfig == null) {
+            return;
+        }
+        if (!isWaitingItemEnabled()) {
+            unregisterWaitingItem();
             return;
         }
 
@@ -121,7 +126,7 @@ public class BedWarsVoteService {
             material = Material.NAME_TAG;
         }
         LobbyItemDefinition<Material> definition = new LobbyItemDefinition<>(
-                "bed_wars_vote_settings",
+                WAITING_ITEM_ID,
                 material,
                 moduleConfig.getInt("waiting_items.vote_settings.slot"),
                 moduleConfig.getString("waiting_items.vote_settings.display_name"),
@@ -133,10 +138,27 @@ public class BedWarsVoteService {
     }
 
     public void registerClickHandler(BedWarsGame game) {
-        if (itemAPI != null) {
-            itemAPI.registerClickHandler("bed_wars_vote_settings",
-                    player -> game.handleVoteCommand(player, new String[]{"menu", "main"}));
+        if (itemAPI == null) {
+            return;
         }
+        if (!isWaitingItemEnabled()) {
+            itemAPI.unregisterClickHandler(WAITING_ITEM_ID);
+            return;
+        }
+        itemAPI.registerClickHandler(WAITING_ITEM_ID,
+                player -> game.handleVoteCommand(player, new String[]{"menu", "main"}));
+    }
+
+    public void unregisterWaitingItem() {
+        if (itemAPI == null) {
+            return;
+        }
+        itemAPI.unregisterWaitingItem(WAITING_ITEM_ID);
+        itemAPI.unregisterClickHandler(WAITING_ITEM_ID);
+    }
+
+    private boolean isWaitingItemEnabled() {
+        return moduleConfig != null && moduleConfig.getBoolean("waiting_items.vote_settings.enabled", true);
     }
 
     public boolean handleVoteCommand(Player player,

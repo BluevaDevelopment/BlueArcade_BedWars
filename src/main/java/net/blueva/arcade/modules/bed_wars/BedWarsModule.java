@@ -141,6 +141,7 @@ public class BedWarsModule implements GameModule<Player, Location, World, Materi
             menuAPI.unregisterModuleMenuAPI("bed");
         }
         if (itemAPI != null) {
+            itemAPI.unregisterWaitingItem("bed_wars_vote_settings");
             itemAPI.unregisterClickHandler("bed_wars_vote_settings");
         }
     }
