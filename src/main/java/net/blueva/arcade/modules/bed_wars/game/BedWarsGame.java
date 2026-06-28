@@ -1,5 +1,6 @@
 package net.blueva.arcade.modules.bed_wars.game;
 
+import net.blueva.arcade.api.ModuleAPI;
 import net.blueva.arcade.api.config.CoreConfigAPI;
 import net.blueva.arcade.api.config.ModuleConfigAPI;
 import net.blueva.arcade.api.game.GameContext;
@@ -10,7 +11,9 @@ import net.blueva.arcade.api.store.StoreAPI;
 import net.blueva.arcade.api.ui.MenuAPI;
 import net.blueva.arcade.api.team.TeamInfo;
 import net.blueva.arcade.api.team.TeamsAPI;
+import net.blueva.arcade.api.utils.PlayerUtil;
 import net.blueva.arcade.modules.bed_wars.state.ArenaState;
+import net.blueva.arcade.modules.bed_wars.state.VoteState;
 import net.blueva.arcade.modules.bed_wars.support.DescriptionService;
 import net.blueva.arcade.modules.bed_wars.support.PlaceholderService;
 import net.blueva.arcade.modules.bed_wars.support.armory.ArmoryService;
@@ -435,6 +438,35 @@ public class BedWarsGame {
             return upgradeService.handleAction(player, payload, context, state);
         }
         return false;
+    }
+
+    public void onPlayerQuit(Player player) {
+        if (player == null) {
+            return;
+        }
+
+        @SuppressWarnings("unchecked")
+        PlayerUtil<Player> playerUtil = (PlayerUtil<Player>) ModuleAPI.getPlayerUtil();
+        Integer waitingArenaId = playerUtil != null ? playerUtil.getPlayerArena(player) : null;
+        if (waitingArenaId == null) {
+            waitingArenaId = playerArena.get(player);
+        }
+        if (voteService != null && waitingArenaId != null) {
+            voteService.clearWaitingVote(waitingArenaId, player.getUniqueId());
+        }
+
+        Integer activeArenaId = playerArena.get(player);
+        if (activeArenaId != null) {
+            ArenaState state = arenas.get(activeArenaId);
+            if (state != null) {
+                VoteState voteState = state.getVoteState();
+                if (voteState != null) {
+                    voteState.clearPlayerVotes(player.getUniqueId());
+                }
+            }
+        }
+
+        playerArena.remove(player);
     }
 
     public boolean handleVoteCommand(Player player, String[] args) {

@@ -4,6 +4,7 @@ import net.blueva.arcade.modules.bed_wars.support.vote.VoteCategory;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -112,5 +113,9 @@ public class VoteState {
             return defaults.get(category);
         }
         return tie ? defaults.getOrDefault(category, winner) : winner;
+    }
+
+    public Set<UUID> getVoterIds() {
+        return Set.copyOf(playerVotes.keySet());
     }
 }
