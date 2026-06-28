@@ -35,12 +35,14 @@ import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
@@ -465,20 +467,36 @@ public class BedWarsListener implements Listener {
                 game.getContext(player);
         if (context == null || !context.isPlayerPlaying(player)) return;
 
-
-        if (event.getCurrentItem() != null && game.getShopService().isPermanentShopItem(event.getCurrentItem())) {
-            if (event.getInventory().getType() != InventoryType.PLAYER) {
+        ItemStack current = event.getCurrentItem();
+        ItemStack cursor = event.getCursor();
+        boolean hasPermanent = (current != null && game.getShopService().isPermanentShopItem(current))
+                || (cursor != null && cursor.getType() != Material.AIR && game.getShopService().isPermanentShopItem(cursor));
+        if (hasPermanent) {
+            Inventory clicked = event.getClickedInventory();
+            if (clicked == null || clicked.getType() != InventoryType.PLAYER || event.isShiftClick()) {
                 event.setCancelled(true);
                 return;
             }
         }
-
 
         if (event.isShiftClick() && game.getShopService().isPlayerInShop(player)) {
             ArenaState state = game.getArenaState(context);
             if (state != null && game.getShopService().handleShopShiftClick(player, event.getRawSlot(), context, state)) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context =
+                game.getContext(player);
+        if (context == null || !context.isPlayerPlaying(player)) return;
+
+        if (game.getShopService().isPermanentShopItem(event.getOldCursor())
+                && event.getInventory().getType() != InventoryType.PLAYER) {
+            event.setCancelled(true);
         }
     }
 

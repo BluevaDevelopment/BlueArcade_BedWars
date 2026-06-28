@@ -2,6 +2,7 @@ package net.blueva.arcade.modules.bed_wars.support.spawner;
 
 import net.blueva.arcade.api.config.ModuleConfigAPI;
 import net.blueva.arcade.api.game.GameContext;
+import org.bukkit.Bukkit;
 import net.blueva.arcade.api.ui.Hologram;
 import net.blueva.arcade.api.ui.HologramAPI;
 import net.blueva.arcade.modules.bed_wars.state.ArenaState;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.LinkedHashSet;
 
 public class SpawnerService {
@@ -178,16 +180,24 @@ public class SpawnerService {
             if (!def.isHologramEnabled()) {
                 continue;
             }
-            if (state.getSpawnerHologram(def.getKey()) != null) {
+            Location holoLoc = def.getLocation().clone().add(0.5D, 2.5D, 0.5D);
+            if (!isChunkLoaded(holoLoc)) {
                 continue;
             }
-            Location holoLoc = def.getLocation().clone().add(0.5D, 2.5D, 0.5D);
+
+            Hologram<Location> existingHolo = state.getSpawnerHologram(def.getKey());
+            if (existingHolo != null) {
+                if (isHologramAlive(existingHolo)) {
+                    continue;
+                }
+                state.removeSpawnerHologram(def.getKey());
+            }
+
             List<String> lines = buildSpawnerHologramLines(def, -1, state);
             Hologram<Location> hologram = hologramAPI.spawn(state.getArenaId(), holoLoc, lines);
             if (hologram != null) {
                 state.setSpawnerHologram(def.getKey(), hologram);
             }
-
 
             if (def.getType() == SpawnerType.DIAMOND || def.getType() == SpawnerType.EMERALD) {
                 spawnSpawnerItemStand(def, state);
@@ -196,9 +206,18 @@ public class SpawnerService {
     }
 
     private void spawnSpawnerItemStand(SpawnerDefinition def, ArenaState state) {
-        if (state.getSpawnerItemStand(def.getKey()) != null) return;
+        ArmorStand existing = state.getSpawnerItemStand(def.getKey());
+        if (existing != null) {
+            if (isItemStandAlive(existing)) {
+                return;
+            }
+            state.removeSpawnerItemStand(def.getKey());
+        }
 
         Location loc = def.getLocation().clone().add(0.5D, 2.8D, 0.5D);
+        if (!isChunkLoaded(loc)) {
+            return;
+        }
         ArmorStand stand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
         stand.setVisible(false);
         stand.setGravity(false);
@@ -211,23 +230,21 @@ public class SpawnerService {
         state.setSpawnerItemRotation(def.getKey(), 0);
     }
 
-
-
-
-
     public void updateSpawnerHolograms(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                                        ArenaState state) {
         if (state == null || context == null) {
             return;
         }
 
+        boolean needsRespawn = false;
         for (SpawnerDefinition def : state.getSpawnerDefinitions()) {
             if (!def.isHologramEnabled()) {
                 continue;
             }
             Hologram<Location> hologram = state.getSpawnerHologram(def.getKey());
-            if (hologram == null) {
-                continue;
+            if (hologram == null || !isHologramAlive(hologram)) {
+                needsRespawn = true;
+                break;
             }
 
             double multiplier = state.getSpawnerMultiplier(def.getTeamId(), def.getType());
@@ -238,6 +255,33 @@ public class SpawnerService {
 
             hologram.setLines(buildSpawnerHologramLines(def, remainingSeconds, state));
         }
+
+        if (needsRespawn) {
+            spawnSpawnerHolograms(context, state);
+        }
+    }
+
+    private boolean isHologramAlive(Hologram<Location> hologram) {
+        if (hologram == null) {
+            return false;
+        }
+        UUID id = hologram.getId();
+        if (id == null) {
+            return false;
+        }
+        Entity entity = Bukkit.getEntity(id);
+        return entity != null && entity.isValid() && !entity.isDead();
+    }
+
+    private boolean isItemStandAlive(ArmorStand stand) {
+        return stand != null && stand.isValid() && !stand.isDead();
+    }
+
+    private boolean isChunkLoaded(Location loc) {
+        if (loc == null || loc.getWorld() == null) {
+            return false;
+        }
+        return loc.getWorld().isChunkLoaded(loc.getBlockX() >> 4, loc.getBlockZ() >> 4);
     }
 
     private List<String> buildSpawnerHologramLines(SpawnerDefinition def, int remainingSeconds, ArenaState state) {

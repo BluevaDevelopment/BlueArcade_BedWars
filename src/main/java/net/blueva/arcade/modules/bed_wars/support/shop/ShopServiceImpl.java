@@ -746,7 +746,7 @@ final class ShopServiceImpl {
       player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
       return false;
     }
-    if (currentTierIndex >= 0) {
+    if (currentTierIndex >= 0 && nextTierIndex > currentTierIndex) {
       ContentTier oldTier = content.tiers().get(currentTierIndex);
       for (BuyItem bi : oldTier.buyItems()) {
         removeItems(player, bi.material(), bi.amount());
