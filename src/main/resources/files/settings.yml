@@ -1,22 +1,28 @@
-# Bed Wars Module Settings
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
 
-file_version: 1
+# Bed Wars Module Settings
 
 # Visual representation in menus
 menus:
   vote:
-    item: RED_BED
+    item: "RED_BED"
 
 votes:
   defaults:
     hearts: "10"
-    time: day
-    weather: sunny
+    time: "day"
+    weather: "sunny"
 
 waiting_items:
   vote_settings:
     enabled: true
-    material: NAME_TAG
+    material: "NAME_TAG"
     slot: 1
     display_name: "<aqua>Vote match settings</aqua>"
     lore:
@@ -108,32 +114,32 @@ generator_upgrades:
   events:
     1:
       time_seconds: 300
-      type: diamond
+      type: "diamond"
       label: "Diamonds II"
       multiplier: 2.0
     2:
       time_seconds: 600
-      type: emerald
+      type: "emerald"
       label: "Emeralds II"
       multiplier: 2.0
     3:
       time_seconds: 900
-      type: diamond
+      type: "diamond"
       label: "Diamonds III"
       multiplier: 3.0
     4:
       time_seconds: 1200
-      type: emerald
+      type: "emerald"
       label: "Emeralds III"
       multiplier: 3.0
     5:
       time_seconds: 1500
-      type: diamond
+      type: "diamond"
       label: "Diamonds IV"
       multiplier: 4.0
     6:
       time_seconds: 1800
-      type: emerald
+      type: "emerald"
       label: "Emeralds IV"
       multiplier: 4.0
 
@@ -147,7 +153,7 @@ special_items:
     damage_self: 2.0
     damage_enemy: 2.0
     damage_teammates: 0.0
-    launch_sound: ENTITY_GHAST_SHOOT
+    launch_sound: "ENTITY_GHAST_SHOOT"
     launch_volume: 1.0
     launch_pitch: 1.0
   tnt:
@@ -157,7 +163,7 @@ special_items:
     length_blocks: 10
     half_width_blocks: 1
     use_team_wool: true
-    fallback_material: WHITE_WOOL
+    fallback_material: "WHITE_WOOL"
   magic_milk:
     trap_immunity_seconds: 30
   bedbug:

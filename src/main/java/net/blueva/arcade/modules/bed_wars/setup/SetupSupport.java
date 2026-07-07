@@ -14,8 +14,8 @@ final class SetupSupport {
     private SetupSupport() {
     }
 
-    static String message(BedWarsModule module, String key) {
-        String message = module.getModuleConfig().getStringFrom("language.yml", "setup_messages." + key);
+    static String message(BedWarsModule module, Player player, String key) {
+        String message = module.getModuleConfig().getTranslation(player, "setup_messages." + key);
         if (message == null) {
             return "";
         }
@@ -54,7 +54,7 @@ final class SetupSupport {
         int teamCount = context.getData().getInt("teams.count", 0);
         String max = teamCount > 0 ? String.valueOf(teamCount) : "N";
         context.getMessagesAPI().sendRaw(context.getPlayer(),
-                message(module, "team.numeric_ids_only")
+                message(module, context.getPlayer(), "team.numeric_ids_only")
                         .replace("{min}", "1")
                         .replace("{max}", max));
     }

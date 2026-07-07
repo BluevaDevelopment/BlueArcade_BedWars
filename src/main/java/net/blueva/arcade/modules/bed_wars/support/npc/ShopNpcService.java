@@ -182,9 +182,9 @@ public class ShopNpcService {
 
         String label;
         if (def.getType() == ShopNpcType.STORE) {
-            label = moduleConfig.getStringFrom("language.yml", "messages.npc.store_hologram");
+            label = moduleConfig.getTranslation(null, "messages.npc.store_hologram");
         } else {
-            label = moduleConfig.getStringFrom("language.yml", "messages.npc.upgrade_hologram");
+            label = moduleConfig.getTranslation(null, "messages.npc.upgrade_hologram");
         }
         if (label == null) {
             label = "<white>" + def.getType().getDisplayName() + "</white>";

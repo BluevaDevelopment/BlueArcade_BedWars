@@ -83,7 +83,7 @@ public class BedWarsListener implements Listener {
         if (game.isInRestrictedZone(context, player, event.getTo())) {
             event.setCancelled(true);
             context.getMessagesAPI().sendRaw(player,
-                    game.getModuleConfig().getStringFrom("language.yml", "messages.restricted_zone"));
+                    game.getModuleConfig().getTranslation(player, "messages.restricted_zone"));
             return;
         }
 
@@ -242,7 +242,7 @@ public class BedWarsListener implements Listener {
                 TeamInfo<Player, Material> breakerTeam = teamsAPI != null ? teamsAPI.getTeam(player) : null;
                 if (breakerTeam != null && breakerTeam.getId().equalsIgnoreCase(bedDef.getTeamId())) {
                     event.setCancelled(true);
-                    String msg = game.getModuleConfig().getStringFrom("language.yml", "messages.bed.cannot_break_own");
+                    String msg = game.getModuleConfig().getTranslation(player, "messages.bed.cannot_break_own");
                     if (msg != null) {
                         context.getMessagesAPI().sendRaw(player, msg);
                     }

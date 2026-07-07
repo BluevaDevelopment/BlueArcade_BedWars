@@ -51,8 +51,8 @@ public class PlaceholderService {
 
                 if (state != null && team != null && team.getId() != null) {
                     boolean bedIntact = game.getBedService().isTeamBedIntact(state, team.getId());
-                    String yesText = moduleConfig.getStringFrom("language.yml", "messages.common.boolean_true");
-                    String noText = moduleConfig.getStringFrom("language.yml", "messages.common.boolean_false");
+                    String yesText = moduleConfig.getTranslation(player, "messages.common.boolean_true");
+                    String noText = moduleConfig.getTranslation(player, "messages.common.boolean_false");
                     placeholders.put("bed_status", bedIntact ? ("<green>" + yesText + "</green>") : ("<red>" + noText + "</red>"));
                 } else {
                     placeholders.put("bed_status", "-");
@@ -79,7 +79,7 @@ public class PlaceholderService {
                         placeholders.put("bed_status_team_" + i, " ");
                     }
 
-                    buildTeamSummaryPlaceholders(context, state, teamsAPI, placeholders, team);
+                    buildTeamSummaryPlaceholders(context, state, teamsAPI, placeholders, team, player);
                 }
             } else {
                 placeholders.put("team", "-");
@@ -124,7 +124,7 @@ public class PlaceholderService {
 
         String status;
         if (bedState == BedState.INTACT) {
-            status = lang("messages.team_status.bed_intact", "<green>✔</green>");
+            status = lang(viewer, "messages.team_status.bed_intact", "<green>✔</green>");
         } else if (hasAlivePlayers) {
             int aliveCount = 0;
             for (Player p : context.getAlivePlayers()) {
@@ -133,19 +133,19 @@ public class PlaceholderService {
                     aliveCount++;
                 }
             }
-            status = lang("messages.team_status.alive_count", "<yellow>{count}</yellow>")
+            status = lang(viewer, "messages.team_status.alive_count", "<yellow>{count}</yellow>")
                     .replace("{count}", String.valueOf(aliveCount));
         } else {
-            status = lang("messages.team_status.eliminated", "<red>✘</red>");
+            status = lang(viewer, "messages.team_status.eliminated", "<red>✘</red>");
         }
 
 
         boolean isOwnTeam = viewer != null && teamsAPI != null
                 && teamsAPI.getTeam(viewer) != null
                 && teamsAPI.getTeam(viewer).getId().equalsIgnoreCase(teamId);
-        String ownTeamSuffix = isOwnTeam ? lang("messages.team_status.own_team_suffix", " <green><bold>YOU</bold></green>") : "";
+        String ownTeamSuffix = isOwnTeam ? lang(viewer, "messages.team_status.own_team_suffix", " <green><bold>YOU</bold></green>") : "";
 
-        return lang("messages.team_status.bed_line", "<white>{team}</white> <gray>-</gray> {status}{own_team_suffix}")
+        return lang(viewer, "messages.team_status.bed_line", "<white>{team}</white> <gray>-</gray> {status}{own_team_suffix}")
                 .replace("{team}", teamDisplay)
                 .replace("{status}", status)
                 .replace("{own_team_suffix}", ownTeamSuffix);
@@ -159,7 +159,8 @@ public class PlaceholderService {
                                               ArenaState state,
                                               TeamsAPI<Player, Material> teamsAPI,
                                               Map<String, String> placeholders,
-                                              TeamInfo<Player, Material> playerTeam) {
+                                              TeamInfo<Player, Material> playerTeam,
+                                              Player viewer) {
         Map<String, Integer> teamKills = game.getTeamKills(context);
         Map<String, Integer> teamDeaths = game.getTeamDeaths(context);
 
@@ -184,18 +185,18 @@ public class PlaceholderService {
             int deaths = teamDeaths.getOrDefault(teamId, 0);
 
             String bedIcon = bedState == BedState.INTACT
-                    ? lang("messages.team_status.bed_intact", "<green>✔</green>")
-                    : lang("messages.team_status.eliminated", "<red>✘</red>");
+                    ? lang(viewer, "messages.team_status.bed_intact", "<green>✔</green>")
+                    : lang(viewer, "messages.team_status.eliminated", "<red>✘</red>");
             String ownTeamSuffix = isPlayerTeam
-                    ? lang("messages.team_status.own_team_header_suffix", " <green><bold><- You</bold></green>")
+                    ? lang(viewer, "messages.team_status.own_team_header_suffix", " <green><bold><- You</bold></green>")
                     : "";
             placeholders.put("team_header_" + index,
-                    lang("messages.team_status.header", "<white>{team}{own_team_suffix}</white>")
+                    lang(viewer, "messages.team_status.header", "<white>{team}{own_team_suffix}</white>")
                             .replace("{team}", teamInfo.getDisplayName())
                             .replace("{own_team_suffix}", ownTeamSuffix)
                             + uniqueSuffix(index, 0));
             placeholders.put("team_summary_" + index,
-                    lang("messages.team_status.summary", "<white>{team}</white> <gray>Bed {bed_status} • K {kills} • D {deaths}</gray>")
+                    lang(viewer, "messages.team_status.summary", "<white>{team}</white> <gray>Bed {bed_status} • K {kills} • D {deaths}</gray>")
                             .replace("{team}", teamInfo.getDisplayName())
                             .replace("{bed_status}", bedIcon)
                             .replace("{kills}", String.valueOf(kills))
@@ -214,8 +215,9 @@ public class PlaceholderService {
         return "\u200B".repeat(count);
     }
 
-    private String lang(String path, String fallback) {
-        return moduleConfig.getStringFrom("language.yml", path, fallback);
+    private String lang(Player player, String path, String fallback) {
+        String value = moduleConfig.getTranslation(player, path);
+        return value != null ? value : fallback;
     }
 
     public List<Player> getPlayersSortedByKills(

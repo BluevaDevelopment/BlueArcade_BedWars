@@ -133,24 +133,22 @@ public class BedService {
             }
         }
 
-        String messageTemplate = moduleConfig.getStringFrom("language.yml", "messages.bed.destroyed");
-        if (messageTemplate != null) {
-            String message = messageTemplate
-                    .replace("{player}", breaker.getName())
-                    .replace("{team}", victimTeamDisplay);
-            for (Player p : context.getPlayers()) {
+        for (Player p : context.getPlayers()) {
+            String messageTemplate = moduleConfig.getTranslation(p, "messages.bed.destroyed");
+            if (messageTemplate != null) {
+                String message = messageTemplate
+                        .replace("{player}", breaker.getName())
+                        .replace("{team}", victimTeamDisplay);
                 context.getMessagesAPI().sendRaw(p, message);
             }
         }
 
-        String titleTemplate = moduleConfig.getStringFrom("language.yml", "titles.bed_destroyed.title");
-        String subtitleTemplate = moduleConfig.getStringFrom("language.yml", "titles.bed_destroyed.subtitle");
-        if (titleTemplate != null && subtitleTemplate != null) {
-            for (Player p : context.getPlayers()) {
-                TeamInfo<Player, Material> pTeam = teamsAPI.getTeam(p);
-                if (pTeam != null && pTeam.getId().equalsIgnoreCase(bedDef.getTeamId())) {
-                    context.getTitlesAPI().sendRaw(p, titleTemplate, subtitleTemplate, 0, 60, 20);
-                }
+        for (Player p : context.getPlayers()) {
+            TeamInfo<Player, Material> pTeam = teamsAPI.getTeam(p);
+            if (pTeam != null && pTeam.getId().equalsIgnoreCase(bedDef.getTeamId())) {
+                String titleTemplate = moduleConfig.getTranslation(p, "titles.bed_destroyed.title");
+                String subtitleTemplate = moduleConfig.getTranslation(p, "titles.bed_destroyed.subtitle");
+                context.getTitlesAPI().sendRaw(p, titleTemplate, subtitleTemplate, 0, 60, 20);
             }
         }
 
@@ -295,18 +293,18 @@ public class BedService {
     private List<String> buildBedHologramLines(String teamDisplay) {
         List<String> lines = new ArrayList<>();
 
-        String titleLine = moduleConfig.getStringFrom("language.yml", "messages.bed.hologram_title");
+        String titleLine = moduleConfig.getTranslation(null, "messages.bed.hologram_title");
         if (titleLine == null) {
             titleLine = "<red>❤ BED ❤</red>";
         }
 
-        String teamLine = moduleConfig.getStringFrom("language.yml", "messages.bed.hologram_label");
+        String teamLine = moduleConfig.getTranslation(null, "messages.bed.hologram_label");
         if (teamLine == null) {
             teamLine = "<white>{team}</white>";
         }
         teamLine = teamLine.replace("{team}", teamDisplay);
 
-        String statusLine = moduleConfig.getStringFrom("language.yml", "messages.bed.hologram_status");
+        String statusLine = moduleConfig.getTranslation(null, "messages.bed.hologram_status");
         if (statusLine == null) {
             statusLine = "<green>✔ Protected</green>";
         }

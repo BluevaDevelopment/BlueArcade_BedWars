@@ -237,7 +237,7 @@ public class TeamUpgradeService {
         UpgradeTier nextTier = upgrade.tiers().get(currentTier);
         int money = ShopService.calculateMoney(player, nextTier.currency());
         if (money < nextTier.cost()) {
-            String msg = moduleConfig.getStringFrom("language.yml", "messages.shop.insufficient_money");
+            String msg = moduleConfig.getTranslation(player, "messages.shop.insufficient_money");
             if (msg != null) {
                 msg = msg.replace("{price}", String.valueOf(nextTier.cost())).replace("{currency}", formatCurrencyName(nextTier.currency()));
                 context.getMessagesAPI().sendRaw(player, msg);
@@ -253,7 +253,7 @@ public class TeamUpgradeService {
             applyAction(player, context, state, team, action);
         }
 
-        String msg = moduleConfig.getStringFrom("language.yml", "messages.upgrade.purchased");
+        String msg = moduleConfig.getTranslation(player, "messages.upgrade.purchased");
         if (msg != null) {
             msg = msg.replace("{player}", player.getName()).replace("{upgrade}", upgrade.name()).replace("{tier}", String.valueOf(currentTier + 1));
             for (Player p : team.getPlayers()) {
@@ -406,7 +406,7 @@ public class TeamUpgradeService {
     }
 
     private String lang(String path, String fallback) {
-        return moduleConfig.getStringFrom("language.yml", path, fallback);
+        return moduleConfig.getTranslation(null, path);
     }
 
     private String menuText(String path, String fallback) {

@@ -1,5 +1,12 @@
-file_version: 2
-type: SIMPLE
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
+type: "SIMPLE"
 menuName: "<dark_gray>Item Shop - {view}"
 
 content:
@@ -15,7 +22,7 @@ templates:
     image: "{image}"
   back_button:
     text: "<white>← Back to categories</white>"
-    image: https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png
+    image: "https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png"
   content:
     tier_line: "{color}Tier {tier} <gray>- {currency_color}{price} {currency}</gray>"
     cost_line: "<gray>Cost: {currency_color}{price} {currency}</gray>"
@@ -27,871 +34,871 @@ shop:
     max_index_scan: 256
   categories:
     1:
-      id: blocks
-      name: Blocks
-      icon: ORANGE_TERRACOTTA
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png
+      id: "blocks"
+      name: "Blocks"
+      icon: "ORANGE_TERRACOTTA"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png"
       content:
         1:
-          id: wool
-          name: Wool
+          id: "wool"
+          name: "Wool"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: WHITE_WOOL
+              material: "WHITE_WOOL"
               amount: 16
               enchanted: false
               price: 4
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WHITE_WOOL
+                  material: "WHITE_WOOL"
                   amount: 16
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_white_wool.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_white_wool.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_white_wool.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_white_wool.png"
         2:
-          id: clay
-          name: Clay
+          id: "clay"
+          name: "Clay"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: ORANGE_TERRACOTTA
+              material: "ORANGE_TERRACOTTA"
               amount: 16
               enchanted: false
               price: 12
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: ORANGE_TERRACOTTA
+                  material: "ORANGE_TERRACOTTA"
                   amount: 16
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_orange_terracotta.png"
         3:
-          id: glass
-          name: Blast-Proof Glass
+          id: "glass"
+          name: "Blast-Proof Glass"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: GLASS
+              material: "GLASS"
               amount: 4
               enchanted: false
               price: 12
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: GLASS
+                  material: "GLASS"
                   amount: 4
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_glass.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_glass.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_glass.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_glass.png"
         4:
-          id: stone
-          name: End Stone
+          id: "stone"
+          name: "End Stone"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: END_STONE
+              material: "END_STONE"
               amount: 16
               enchanted: false
               price: 24
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: END_STONE
+                  material: "END_STONE"
                   amount: 16
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_end_stone.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_end_stone.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_end_stone.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_end_stone.png"
         5:
-          id: ladder
-          name: Ladder
+          id: "ladder"
+          name: "Ladder"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: LADDER
+              material: "LADDER"
               amount: 16
               enchanted: false
               price: 4
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: LADDER
+                  material: "LADDER"
                   amount: 16
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_ladder.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_ladder.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_ladder.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_ladder.png"
         6:
-          id: wood
-          name: Oak Wood
+          id: "wood"
+          name: "Oak Wood"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: OAK_WOOD
+              material: "OAK_WOOD"
               amount: 16
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: OAK_WOOD
+                  material: "OAK_WOOD"
                   amount: 16
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_oak_wood.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_oak_wood.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_oak_wood.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_oak_wood.png"
         7:
-          id: obsidian
-          name: Obsidian
+          id: "obsidian"
+          name: "Obsidian"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: OBSIDIAN
+              material: "OBSIDIAN"
               amount: 4
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: OBSIDIAN
+                  material: "OBSIDIAN"
                   amount: 4
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_obsidian.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_obsidian.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_obsidian.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_obsidian.png"
     2:
-      id: melee
-      name: Melee
-      icon: GOLDEN_SWORD
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_sword.png
+      id: "melee"
+      name: "Melee"
+      icon: "GOLDEN_SWORD"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_sword.png"
       content:
         1:
-          id: stone_sword
-          name: Stone Sword
+          id: "stone_sword"
+          name: "Stone Sword"
           permanent: false
           downgradable: false
           unbreakable: true
           weight: 0
           tiers:
             1:
-              material: STONE_SWORD
+              material: "STONE_SWORD"
               amount: 1
               enchanted: false
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: STONE_SWORD
+                  material: "STONE_SWORD"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_stone_sword.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_stone_sword.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_stone_sword.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_stone_sword.png"
         2:
-          id: iron_sword
-          name: Iron Sword
+          id: "iron_sword"
+          name: "Iron Sword"
           permanent: false
           downgradable: false
           unbreakable: true
           weight: 0
           tiers:
             1:
-              material: IRON_SWORD
+              material: "IRON_SWORD"
               amount: 1
               enchanted: false
               price: 7
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: IRON_SWORD
+                  material: "IRON_SWORD"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_sword.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_sword.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_sword.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_sword.png"
         3:
-          id: diamond_sword
-          name: Diamond Sword
+          id: "diamond_sword"
+          name: "Diamond Sword"
           permanent: false
           downgradable: false
           unbreakable: true
           weight: 0
           tiers:
             1:
-              material: DIAMOND_SWORD
+              material: "DIAMOND_SWORD"
               amount: 1
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: DIAMOND_SWORD
+                  material: "DIAMOND_SWORD"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png"
         4:
-          id: knockback_stick
-          name: Knockback Stick
+          id: "knockback_stick"
+          name: "Knockback Stick"
           permanent: false
           downgradable: false
           unbreakable: true
           weight: 0
           tiers:
             1:
-              material: STICK
+              material: "STICK"
               amount: 1
               enchanted: true
               price: 10
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: STICK
+                  material: "STICK"
                   amount: 1
                   enchantments:
-                    1: KNOCKBACK:1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_stick.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_stick.png
+                    1: "KNOCKBACK:1"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_stick.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_stick.png"
     3:
-      id: armor
-      name: Armor
-      icon: CHAINMAIL_BOOTS
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png
+      id: "armor"
+      name: "Armor"
+      icon: "CHAINMAIL_BOOTS"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png"
       content:
         1:
-          id: chainmail
-          name: Chainmail Armor
+          id: "chainmail"
+          name: "Chainmail Armor"
           permanent: true
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: CHAINMAIL_BOOTS
+              material: "CHAINMAIL_BOOTS"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: CHAINMAIL_BOOTS
+                  material: "CHAINMAIL_BOOTS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png"
                 2:
-                  material: CHAINMAIL_LEGGINGS
+                  material: "CHAINMAIL_LEGGINGS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_leggings.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_leggings.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chainmail_boots.png"
         2:
-          id: iron_armor
-          name: Iron Armor
+          id: "iron_armor"
+          name: "Iron Armor"
           permanent: true
           downgradable: false
           unbreakable: false
           weight: 1
           tiers:
             1:
-              material: IRON_BOOTS
+              material: "IRON_BOOTS"
               amount: 1
               enchanted: false
               price: 12
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: IRON_BOOTS
+                  material: "IRON_BOOTS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_boots.png"
                 2:
-                  material: IRON_LEGGINGS
+                  material: "IRON_LEGGINGS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_leggings.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_leggings.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_boots.png"
         3:
-          id: diamond_armor
-          name: Diamond Armor
+          id: "diamond_armor"
+          name: "Diamond Armor"
           permanent: true
           downgradable: false
           unbreakable: false
           weight: 2
           tiers:
             1:
-              material: DIAMOND_BOOTS
+              material: "DIAMOND_BOOTS"
               amount: 1
               enchanted: false
               price: 6
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: DIAMOND_BOOTS
+                  material: "DIAMOND_BOOTS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_boots.png"
                 2:
-                  material: DIAMOND_LEGGINGS
+                  material: "DIAMOND_LEGGINGS"
                   amount: 1
                   auto_equip: true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_leggings.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_boots.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_leggings.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_boots.png"
     4:
-      id: tools
-      name: Tools
-      icon: STONE_PICKAXE
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_stone_pickaxe.png
+      id: "tools"
+      name: "Tools"
+      icon: "STONE_PICKAXE"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_stone_pickaxe.png"
       content:
         1:
-          id: shears
-          name: Shears
+          id: "shears"
+          name: "Shears"
           permanent: true
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: SHEARS
+              material: "SHEARS"
               amount: 1
               enchanted: false
               price: 20
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: SHEARS
+                  material: "SHEARS"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_shears.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_shears.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_shears.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_shears.png"
         2:
-          id: pickaxe
-          name: Pickaxe
+          id: "pickaxe"
+          name: "Pickaxe"
           permanent: true
           downgradable: true
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: WOODEN_PICKAXE
+              material: "WOODEN_PICKAXE"
               amount: 1
               enchanted: false
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WOODEN_PICKAXE
+                  material: "WOODEN_PICKAXE"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_pickaxe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_pickaxe.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_pickaxe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_pickaxe.png"
             2:
-              material: IRON_PICKAXE
+              material: "IRON_PICKAXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: IRON_PICKAXE
+                  material: "IRON_PICKAXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:2
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_pickaxe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_pickaxe.png
+                    1: "DIG_SPEED:2"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_pickaxe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_pickaxe.png"
             3:
-              material: GOLDEN_PICKAXE
+              material: "GOLDEN_PICKAXE"
               amount: 1
               enchanted: true
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_PICKAXE
+                  material: "GOLDEN_PICKAXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:3
-                    2: DAMAGE_ALL:2
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png
+                    1: "DIG_SPEED:3"
+                    2: "DAMAGE_ALL:2"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png"
             4:
-              material: DIAMOND_PICKAXE
+              material: "DIAMOND_PICKAXE"
               amount: 1
               enchanted: true
               price: 6
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: DIAMOND_PICKAXE
+                  material: "DIAMOND_PICKAXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:3
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_pickaxe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_pickaxe.png
+                    1: "DIG_SPEED:3"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_pickaxe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_pickaxe.png"
         3:
-          id: axe
-          name: Axe
+          id: "axe"
+          name: "Axe"
           permanent: true
           downgradable: true
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: WOODEN_AXE
+              material: "WOODEN_AXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WOODEN_AXE
+                  material: "WOODEN_AXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_axe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_axe.png
+                    1: "DIG_SPEED:1"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_axe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_wooden_axe.png"
             2:
-              material: IRON_AXE
+              material: "IRON_AXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: IRON_AXE
+                  material: "IRON_AXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_axe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_axe.png
+                    1: "DIG_SPEED:1"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_axe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_axe.png"
             3:
-              material: GOLDEN_AXE
+              material: "GOLDEN_AXE"
               amount: 1
               enchanted: true
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_AXE
+                  material: "GOLDEN_AXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:2
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_axe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_axe.png
+                    1: "DIG_SPEED:2"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_axe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_axe.png"
             4:
-              material: DIAMOND_AXE
+              material: "DIAMOND_AXE"
               amount: 1
               enchanted: true
               price: 6
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: DIAMOND_AXE
+                  material: "DIAMOND_AXE"
                   amount: 1
                   enchantments:
-                    1: DIG_SPEED:3
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_axe.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_axe.png
+                    1: "DIG_SPEED:3"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_axe.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_axe.png"
     5:
-      id: ranged
-      name: Ranged
-      icon: BOW
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
+      id: "ranged"
+      name: "Ranged"
+      icon: "BOW"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
       content:
         1:
-          id: arrow
-          name: Arrow
+          id: "arrow"
+          name: "Arrow"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: ARROW
+              material: "ARROW"
               amount: 8
               enchanted: false
               price: 2
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: ARROW
+                  material: "ARROW"
                   amount: 8
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_arrow.png"
         2:
-          id: bow1
-          name: Bow
+          id: "bow1"
+          name: "Bow"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: false
               price: 12
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
         3:
-          id: bow2
-          name: Power Bow
+          id: "bow2"
+          name: "Power Bow"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: true
               price: 24
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
                   enchantments:
-                    1: ARROW_DAMAGE:1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
+                    1: "ARROW_DAMAGE:1"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
         4:
-          id: bow3
-          name: Punch Bow
+          id: "bow3"
+          name: "Punch Bow"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: true
               price: 6
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
                   enchantments:
-                    1: ARROW_DAMAGE:1
-                    2: ARROW_KNOCKBACK:1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png
+                    1: "ARROW_DAMAGE:1"
+                    2: "ARROW_KNOCKBACK:1"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_bow.png"
     6:
-      id: potions
-      name: Potions
-      icon: BREWING_STAND
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_brewing_stand.png
+      id: "potions"
+      name: "Potions"
+      icon: "BREWING_STAND"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_brewing_stand.png"
       content:
         1:
-          id: speed_potion
-          name: Speed Potion
+          id: "speed_potion"
+          name: "Speed Potion"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 1
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#33EBFF"
                   effects:
-                    1: SPEED:900:1:true:true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
+                    1: "SPEED:900:1:true:true"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
         2:
-          id: jump_potion
-          name: Jump Potion
+          id: "jump_potion"
+          name: "Jump Potion"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 1
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#22FF4C"
                   effects:
-                    1: JUMP:900:4:true:true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
+                    1: "JUMP:900:4:true:true"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
         3:
-          id: invisibility
-          name: Invisibility Potion
+          id: "invisibility"
+          name: "Invisibility Potion"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 2
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#F6F6F6"
                   effects:
-                    1: INVISIBILITY:600:0:true:true
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png
+                    1: "INVISIBILITY:600:0:true:true"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_potion.png"
     7:
-      id: utility
-      name: Utility
-      icon: TNT
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png
+      id: "utility"
+      name: "Utility"
+      icon: "TNT"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png"
       content:
         1:
-          id: golden_apple
-          name: Golden Apple
+          id: "golden_apple"
+          name: "Golden Apple"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: GOLDEN_APPLE
+              material: "GOLDEN_APPLE"
               amount: 1
               enchanted: false
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_APPLE
+                  material: "GOLDEN_APPLE"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_apple.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_apple.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_apple.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_apple.png"
         2:
-          id: bedbug
-          name: Bedbug
+          id: "bedbug"
+          name: "Bedbug"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: SNOWBALL
+              material: "SNOWBALL"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: SNOWBALL
+                  material: "SNOWBALL"
                   amount: 1
-                  special: bedbug
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_snowball.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_snowball.png
+                  special: "bedbug"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_snowball.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_snowball.png"
         3:
-          id: dream_defender
-          name: Dream Defender
+          id: "dream_defender"
+          name: "Dream Defender"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: HORSE_SPAWN_EGG
+              material: "HORSE_SPAWN_EGG"
               amount: 1
               enchanted: false
               price: 120
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: HORSE_SPAWN_EGG
+                  material: "HORSE_SPAWN_EGG"
                   amount: 1
-                  special: dream_defender
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_horse_spawn_egg.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_horse_spawn_egg.png
+                  special: "dream_defender"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_horse_spawn_egg.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_horse_spawn_egg.png"
         4:
-          id: fireball
-          name: Fireball
+          id: "fireball"
+          name: "Fireball"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: FIRE_CHARGE
+              material: "FIRE_CHARGE"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: FIRE_CHARGE
+                  material: "FIRE_CHARGE"
                   amount: 1
-                  special: fireball
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_fire_charge.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_fire_charge.png
+                  special: "fireball"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_fire_charge.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_fire_charge.png"
         5:
-          id: tnt
-          name: TNT
+          id: "tnt"
+          name: "TNT"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: TNT
+              material: "TNT"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: TNT
+                  material: "TNT"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_tnt.png"
         6:
-          id: ender_pearl
-          name: Ender Pearl
+          id: "ender_pearl"
+          name: "Ender Pearl"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: ENDER_PEARL
+              material: "ENDER_PEARL"
               amount: 1
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: ENDER_PEARL
+                  material: "ENDER_PEARL"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_ender_pearl.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_ender_pearl.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_ender_pearl.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_ender_pearl.png"
         7:
-          id: water_bucket
-          name: Water Bucket
+          id: "water_bucket"
+          name: "Water Bucket"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: WATER_BUCKET
+              material: "WATER_BUCKET"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: WATER_BUCKET
+                  material: "WATER_BUCKET"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_water_bucket.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_water_bucket.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_water_bucket.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_water_bucket.png"
         8:
-          id: bridge_egg
-          name: Bridge Egg
+          id: "bridge_egg"
+          name: "Bridge Egg"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: EGG
+              material: "EGG"
               amount: 1
               enchanted: false
               price: 3
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: EGG
+                  material: "EGG"
                   amount: 1
-                  special: bridge_egg
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_egg.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_egg.png
+                  special: "bridge_egg"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_egg.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_egg.png"
         9:
-          id: magic_milk
-          name: Magic Milk
+          id: "magic_milk"
+          name: "Magic Milk"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: MILK_BUCKET
+              material: "MILK_BUCKET"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: MILK_BUCKET
+                  material: "MILK_BUCKET"
                   amount: 1
-                  special: magic_milk
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_milk_bucket.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_milk_bucket.png
+                  special: "magic_milk"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_milk_bucket.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_milk_bucket.png"
         10:
-          id: sponge
-          name: Sponge
+          id: "sponge"
+          name: "Sponge"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: SPONGE
+              material: "SPONGE"
               amount: 1
               enchanted: false
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: SPONGE
+                  material: "SPONGE"
                   amount: 1
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_sponge.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_sponge.png
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_sponge.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_sponge.png"
         11:
-          id: tower
-          name: Tower
+          id: "tower"
+          name: "Tower"
           permanent: false
           downgradable: false
           unbreakable: false
           weight: 0
           tiers:
             1:
-              material: CHEST
+              material: "CHEST"
               amount: 1
               enchanted: false
               price: 24
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: CHEST
+                  material: "CHEST"
                   amount: 1
-                  special: tower
-                  image: https://blueva.net/api/menu/items/1_21_10/minecraft_chest.png
-              image: https://blueva.net/api/menu/items/1_21_10/minecraft_chest.png
+                  special: "tower"
+                  image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chest.png"
+              image: "https://blueva.net/api/menu/items/1_21_10/minecraft_chest.png"

@@ -1,5 +1,12 @@
-file_version: 2
-type: SIMPLE
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
+type: "SIMPLE"
 menuName: "<dark_gray>Team Upgrades"
 
 content:
@@ -18,88 +25,88 @@ templates:
 team_upgrades:
   upgrades:
     1:
-      id: sharpness
-      name: Sharpened Swords
-      icon: DIAMOND_SWORD
+      id: "sharpness"
+      name: "Sharpened Swords"
+      icon: "DIAMOND_SWORD"
       amount: 1
       slot: 10
       lore: []
       tiers:
         1:
           cost: 4
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: enchant-team:sharpness,1,sword
+            1: "enchant-team:sharpness,1,sword"
         2:
           cost: 8
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: enchant-team:sharpness,2,sword
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png
+            1: "enchant-team:sharpness,2,sword"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_diamond_sword.png"
     2:
-      id: protection
-      name: Reinforced Armor
-      icon: IRON_CHESTPLATE
+      id: "protection"
+      name: "Reinforced Armor"
+      icon: "IRON_CHESTPLATE"
       amount: 1
       slot: 12
       lore: []
       tiers:
         1:
           cost: 4
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: enchant-team:protection,1,armor
+            1: "enchant-team:protection,1,armor"
         2:
           cost: 8
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: enchant-team:protection,2,armor
+            1: "enchant-team:protection,2,armor"
         3:
           cost: 12
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: enchant-team:protection,3,armor
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_iron_chestplate.png
+            1: "enchant-team:protection,3,armor"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_iron_chestplate.png"
     3:
-      id: haste
-      name: Maniac Miner
-      icon: GOLDEN_PICKAXE
+      id: "haste"
+      name: "Maniac Miner"
+      icon: "GOLDEN_PICKAXE"
       amount: 1
       slot: 14
       lore: []
       tiers:
         1:
           cost: 4
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: player-effect:HASTE,0,0
+            1: "player-effect:HASTE,0,0"
         2:
           cost: 6
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: player-effect:HASTE,1,0
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png
+            1: "player-effect:HASTE,1,0"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_golden_pickaxe.png"
     4:
-      id: forge
-      name: Iron Forge
-      icon: FURNACE
+      id: "forge"
+      name: "Iron Forge"
+      icon: "FURNACE"
       amount: 1
       slot: 16
       lore: []
       tiers:
         1:
           cost: 4
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: generator-speed:iron,2.0
+            1: "generator-speed:iron,2.0"
         2:
           cost: 8
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: generator-speed:gold,2.0
+            1: "generator-speed:gold,2.0"
         3:
           cost: 12
-          currency: diamond
+          currency: "diamond"
           actions:
-            1: generator-speed:emerald,2.0
-      image: https://blueva.net/api/menu/items/1_21_10/minecraft_furnace.png
+            1: "generator-speed:emerald,2.0"
+      image: "https://blueva.net/api/menu/items/1_21_10/minecraft_furnace.png"

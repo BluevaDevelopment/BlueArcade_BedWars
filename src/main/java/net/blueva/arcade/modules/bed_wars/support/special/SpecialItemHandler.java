@@ -228,8 +228,7 @@ public class SpecialItemHandler {
         event.setCancelled(true);
         consumeOneItem(player);
         int seconds = moduleConfig.getInt("special_items.magic_milk.trap_immunity_seconds", 30);
-        String message = moduleConfig.getStringFrom("language.yml", "messages.special_items.magic_milk_used",
-                "<yellow>You are now immune to traps for {seconds} seconds!</yellow>");
+        String message = moduleConfig.getTranslation(player, "messages.special_items.magic_milk_used");
         context.getMessagesAPI().sendRaw(player, message.replace("{seconds}", String.valueOf(seconds)));
     }
 

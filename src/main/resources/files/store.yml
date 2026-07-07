@@ -1,42 +1,49 @@
-file_version: 1
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
 
 categories:
-  - root
-  - cages
+  - "root"
+  - "cages"
 
 category_settings:
   root:
-    id: bed_wars_store
+    id: "bed_wars_store"
     name: "BedWars"
-    icon: RED_BED
+    icon: "RED_BED"
     description:
       - "<gray>BedWars cosmetics and preferences.</gray>"
       - "<gray>Unlock items once and use them in every arena.</gray>"
       - "<gray> </gray>"
       - "<yellow>Select a category below to begin.</yellow>"
     enabled: true
-    type: group
+    type: "group"
     selection_enabled: false
     sort_order: 10
     items:
       order: []
   cages:
-    id: bed_wars_cages
+    id: "bed_wars_cages"
     name: "Cage Colors"
-    icon: GLASS
+    icon: "GLASS"
     description:
       - "<gray>Customize the spawn cage appearance.</gray>"
       - "<gray>Glass and block variants are available.</gray>"
       - "<gray> </gray>"
       - "<yellow>Pick your favorite cage.</yellow>"
     enabled: true
-    type: selection
-    parent_id: bed_wars_store
+    type: "selection"
+    parent_id: "bed_wars_store"
     selection_enabled: true
     random_selection_enabled: true
     random_item:
       display_name: "Random Cage"
-      icon: ENDER_CHEST
+      icon: "ENDER_CHEST"
       description:
         - "<gray>Select a random unlocked cage.</gray>"
     sort_order: 30

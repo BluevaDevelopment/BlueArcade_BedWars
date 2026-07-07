@@ -62,7 +62,7 @@ public class CombatService {
             return;
         }
 
-        if (context.getSpectators().contains(target) || target.getGameMode() == GameMode.SPECTATOR) {
+        if (context.getSpectators().contains(target) || context.isPlayerSpectating(target)) {
             return;
         }
 
@@ -91,8 +91,8 @@ public class CombatService {
         if (canRespawn) {
             scheduleRespawn(context, target);
         } else {
-            target.setGameMode(GameMode.SPECTATOR);
-            context.eliminatePlayer(target, moduleConfig.getStringFrom("language.yml", "messages.eliminated"));
+            context.setPlayerSpectating(target, true);
+            context.eliminatePlayer(target, moduleConfig.getTranslation(target, "messages.eliminated"));
             game.checkForVictory(context);
         }
     }
@@ -104,7 +104,7 @@ public class CombatService {
             delay = 1;
         }
 
-        player.setGameMode(GameMode.SPECTATOR);
+        context.setPlayerSpectating(player, true);
         String taskId = "arena_" + context.getArenaId() + "_respawn_" + player.getUniqueId();
         context.getSchedulerAPI().runLater(taskId, () -> {
             if (!player.isOnline() || !context.isPlayerPlaying(player)) {
@@ -135,16 +135,16 @@ public class CombatService {
         if (killed) {
             context.getSoundsAPI().play(target, coreConfig.getSound("sounds.in_game.dead"));
             context.getTitlesAPI().sendRaw(target,
-                    moduleConfig.getStringFrom("language.yml", "titles.you_died.title"),
-                    moduleConfig.getStringFrom("language.yml", "titles.you_died.subtitle"),
+                    moduleConfig.getTranslation(target, "titles.you_died.title"),
+                    moduleConfig.getTranslation(target, "titles.you_died.subtitle"),
                     0, 80, 20);
             return;
         }
 
         context.getSoundsAPI().play(target, coreConfig.getSound("sounds.in_game.classified"));
         context.getTitlesAPI().sendRaw(target,
-                moduleConfig.getStringFrom("language.yml", "titles.classified.title"),
-                moduleConfig.getStringFrom("language.yml", "titles.classified.subtitle"),
+                moduleConfig.getTranslation(target, "titles.classified.title"),
+                moduleConfig.getTranslation(target, "titles.classified.subtitle"),
                 0, 80, 20);
     }
 
@@ -196,7 +196,7 @@ public class CombatService {
     }
 
     private String getRandomMessage(String path) {
-        List<String> messages = moduleConfig.getStringListFrom("language.yml", path);
+        List<String> messages = moduleConfig.getTranslationList(null, path);
         if (messages == null || messages.isEmpty()) {
             return null;
         }

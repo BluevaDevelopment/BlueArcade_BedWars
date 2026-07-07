@@ -21,13 +21,13 @@ final class BedWarsSpawnerSetupHandler {
 
     boolean handle(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.usage"));
             return true;
         }
 
         String action = context.getHandlerArg(0);
         if (action == null) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.usage"));
             return true;
         }
 
@@ -43,32 +43,32 @@ final class BedWarsSpawnerSetupHandler {
             return add(context);
         }
 
-        context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.usage"));
+        context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.usage"));
         return true;
     }
 
     private boolean add(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(3)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.add_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.add_usage"));
             return true;
         }
 
         String typeName = context.getHandlerArg(1);
         if (typeName == null || typeName.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.add_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.add_usage"));
             return true;
         }
 
         String typeUpper = typeName.toUpperCase(Locale.ROOT);
         if (!typeUpper.equals("IRON") && !typeUpper.equals("GOLD") && !typeUpper.equals("DIAMOND") && !typeUpper.equals("EMERALD")) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.invalid_type")
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.invalid_type")
                     .replace("{type}", typeName));
             return true;
         }
 
         String hologramRaw = context.getHandlerArg(2);
         if (hologramRaw == null || (!hologramRaw.equalsIgnoreCase("true") && !hologramRaw.equalsIgnoreCase("false"))) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.invalid_hologram")
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.invalid_hologram")
                     .replace("{value}", hologramRaw == null ? "" : hologramRaw));
             return true;
         }
@@ -81,7 +81,7 @@ final class BedWarsSpawnerSetupHandler {
 
         Block targetBlock = player.getTargetBlockExact(5);
         if (targetBlock == null || targetBlock.getType() == Material.AIR) {
-            context.getMessagesAPI().sendRaw(player, message("spawner.must_look_at_block"));
+            context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.must_look_at_block"));
             return true;
         }
 
@@ -101,7 +101,7 @@ final class BedWarsSpawnerSetupHandler {
         context.getData().setString("game.play_area.spawner_registry", String.join(",", registry));
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(player, message("spawner.added")
+        context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.added")
                 .replace("{id}", spawnerId)
                 .replace("{type}", typeUpper)
                 .replace("{hologram}", String.valueOf(hologram)));
@@ -114,17 +114,17 @@ final class BedWarsSpawnerSetupHandler {
             registryRaw = context.getData().getString("game.spawner_registry");
         }
         if (registryRaw == null || registryRaw.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.list_empty"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.list_empty"));
             return true;
         }
 
         Set<String> entries = SetupSupport.parseRegistry(registryRaw);
         if (entries.isEmpty()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.list_empty"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.list_empty"));
             return true;
         }
 
-        context.getMessagesAPI().sendRaw(context.getPlayer(), message("spawner.list_header"));
+        context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "spawner.list_header"));
         for (String spawnerId : entries) {
             String basePath = "game.play_area.spawners." + spawnerId;
             String type = context.getData().getString(basePath + ".type");
@@ -132,7 +132,7 @@ final class BedWarsSpawnerSetupHandler {
             if (type == null || type.isBlank()) {
                 continue;
             }
-            String line = message("spawner.list_line")
+            String line = message(context.getPlayer(), "spawner.list_line")
                     .replace("{id}", spawnerId)
                     .replace("{type}", type)
                     .replace("{hologram}", hologram == null ? "-" : hologram);
@@ -149,14 +149,14 @@ final class BedWarsSpawnerSetupHandler {
 
         Block targetBlock = player.getTargetBlockExact(5);
         if (targetBlock == null || targetBlock.getType() == Material.AIR) {
-            context.getMessagesAPI().sendRaw(player, message("spawner.must_look_at_block"));
+            context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.must_look_at_block"));
             return true;
         }
 
         Location targetLoc = targetBlock.getLocation();
         String registryRaw = context.getData().getString("game.play_area.spawner_registry");
         if (registryRaw == null || registryRaw.isBlank()) {
-            context.getMessagesAPI().sendRaw(player, message("spawner.not_found"));
+            context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.not_found"));
             return true;
         }
 
@@ -174,7 +174,7 @@ final class BedWarsSpawnerSetupHandler {
         }
 
         if (foundId == null) {
-            context.getMessagesAPI().sendRaw(player, message("spawner.not_found"));
+            context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.not_found"));
             return true;
         }
 
@@ -183,12 +183,12 @@ final class BedWarsSpawnerSetupHandler {
         context.getData().setString("game.play_area.spawner_registry", String.join(",", registry));
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(player, message("spawner.removed")
+        context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "spawner.removed")
                 .replace("{id}", foundId));
         return true;
     }
 
-    private String message(String key) {
-        return SetupSupport.message(module, key);
+    private String message(Player player, String key) {
+        return SetupSupport.message(module, player, key);
     }
 }

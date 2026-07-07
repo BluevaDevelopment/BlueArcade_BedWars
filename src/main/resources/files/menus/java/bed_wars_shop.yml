@@ -1,7 +1,14 @@
-file_version: 1
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
 menu_name: '<dark_gray>Item Shop - {view}'
 menu_size: 54
-type: CHEST
+type: "CHEST"
 
 # Slots used by the active tab content area.
 # Category tabs use these slots automatically when content entries do not define a slot.
@@ -55,7 +62,7 @@ templates:
     empty:
       name: " "
       item_stack:
-        material: RED_STAINED_GLASS_PANE
+        material: "RED_STAINED_GLASS_PANE"
         amount: 1
       lore:
         - "<red>This is a Quick Buy Slot!</red>"
@@ -78,11 +85,11 @@ templates:
     click_to_view_lore: "<gray>Click to view</gray>"
     separator_regular:
       item_stack:
-        material: GRAY_STAINED_GLASS_PANE
+        material: "GRAY_STAINED_GLASS_PANE"
         amount: 1
     separator_selected:
       item_stack:
-        material: GREEN_STAINED_GLASS_PANE
+        material: "GREEN_STAINED_GLASS_PANE"
         amount: 1
   content:
     tier_line: "{color}Tier {tier} <gray>- {currency_color}{price} {currency}</gray>"
@@ -95,7 +102,7 @@ items:
   quick_buy:
     slot: 0
     item_stack:
-      material: NETHER_STAR
+      material: "NETHER_STAR"
       amount: 1
 
 shop:
@@ -128,44 +135,44 @@ shop:
   # Format: category = category id, content = content id from that category.
   quick_buy_defaults:
     1:
-      category: blocks
-      content: wool
+      category: "blocks"
+      content: "wool"
     2:
-      category: melee
-      content: stone_sword
+      category: "melee"
+      content: "stone_sword"
     3:
-      category: armor
-      content: chainmail
+      category: "armor"
+      content: "chainmail"
     4:
-      category: ranged
-      content: bow1
+      category: "ranged"
+      content: "bow1"
     5:
-      category: potions
-      content: speed_potion
+      category: "potions"
+      content: "speed_potion"
     6:
-      category: utility
-      content: tnt
+      category: "utility"
+      content: "tnt"
     7:
-      category: blocks
-      content: wood
+      category: "blocks"
+      content: "wood"
     8:
-      category: melee
-      content: iron_sword
+      category: "melee"
+      content: "iron_sword"
     9:
-      category: armor
-      content: iron_armor
+      category: "armor"
+      content: "iron_armor"
     10:
-      category: tools
-      content: shears
+      category: "tools"
+      content: "shears"
     11:
-      category: ranged
-      content: arrow
+      category: "ranged"
+      content: "arrow"
     12:
-      category: potions
-      content: jump_potion
+      category: "potions"
+      content: "jump_potion"
     13:
-      category: utility
-      content: water_bucket
+      category: "utility"
+      content: "water_bucket"
 
   categories:
     # Every category supports: id, name, icon, amount, optional slot override, lore, content.
@@ -174,12 +181,12 @@ shop:
     # Every buy_item supports: material, amount, name, lore, auto_equip, special,
     # potion_color, enchantments, effects and actions.
     1:
-      id: blocks
+      id: "blocks"
       name: "Blocks"
-      icon: ORANGE_TERRACOTTA
+      icon: "ORANGE_TERRACOTTA"
       content:
         1:
-          id: wool
+          id: "wool"
           name: "Wool"
           permanent: false
           downgradable: false
@@ -187,17 +194,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: WHITE_WOOL
+              material: "WHITE_WOOL"
               amount: 16
               enchanted: false
               price: 4
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WHITE_WOOL
+                  material: "WHITE_WOOL"
                   amount: 16
         2:
-          id: clay
+          id: "clay"
           name: "Clay"
           permanent: false
           downgradable: false
@@ -205,17 +212,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: ORANGE_TERRACOTTA
+              material: "ORANGE_TERRACOTTA"
               amount: 16
               enchanted: false
               price: 12
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: ORANGE_TERRACOTTA
+                  material: "ORANGE_TERRACOTTA"
                   amount: 16
         3:
-          id: glass
+          id: "glass"
           name: "Blast-Proof Glass"
           permanent: false
           downgradable: false
@@ -223,17 +230,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: GLASS
+              material: "GLASS"
               amount: 4
               enchanted: false
               price: 12
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: GLASS
+                  material: "GLASS"
                   amount: 4
         4:
-          id: stone
+          id: "stone"
           name: "End Stone"
           permanent: false
           downgradable: false
@@ -241,17 +248,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: END_STONE
+              material: "END_STONE"
               amount: 16
               enchanted: false
               price: 24
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: END_STONE
+                  material: "END_STONE"
                   amount: 16
         5:
-          id: ladder
+          id: "ladder"
           name: "Ladder"
           permanent: false
           downgradable: false
@@ -259,17 +266,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: LADDER
+              material: "LADDER"
               amount: 16
               enchanted: false
               price: 4
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: LADDER
+                  material: "LADDER"
                   amount: 16
         6:
-          id: wood
+          id: "wood"
           name: "Oak Wood"
           permanent: false
           downgradable: false
@@ -277,17 +284,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: OAK_WOOD
+              material: "OAK_WOOD"
               amount: 16
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: OAK_WOOD
+                  material: "OAK_WOOD"
                   amount: 16
         7:
-          id: obsidian
+          id: "obsidian"
           name: "Obsidian"
           permanent: false
           downgradable: false
@@ -295,22 +302,22 @@ shop:
           weight: 0
           tiers:
             1:
-              material: OBSIDIAN
+              material: "OBSIDIAN"
               amount: 4
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: OBSIDIAN
+                  material: "OBSIDIAN"
                   amount: 4
     2:
-      id: melee
+      id: "melee"
       name: "Melee"
-      icon: GOLDEN_SWORD
+      icon: "GOLDEN_SWORD"
       content:
         1:
-          id: stone_sword
+          id: "stone_sword"
           name: "Stone Sword"
           permanent: false
           downgradable: false
@@ -318,17 +325,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: STONE_SWORD
+              material: "STONE_SWORD"
               amount: 1
               enchanted: false
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: STONE_SWORD
+                  material: "STONE_SWORD"
                   amount: 1
         2:
-          id: iron_sword
+          id: "iron_sword"
           name: "Iron Sword"
           permanent: false
           downgradable: false
@@ -336,17 +343,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: IRON_SWORD
+              material: "IRON_SWORD"
               amount: 1
               enchanted: false
               price: 7
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: IRON_SWORD
+                  material: "IRON_SWORD"
                   amount: 1
         3:
-          id: diamond_sword
+          id: "diamond_sword"
           name: "Diamond Sword"
           permanent: false
           downgradable: false
@@ -354,17 +361,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: DIAMOND_SWORD
+              material: "DIAMOND_SWORD"
               amount: 1
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: DIAMOND_SWORD
+                  material: "DIAMOND_SWORD"
                   amount: 1
         4:
-          id: knockback_stick
+          id: "knockback_stick"
           name: "Knockback Stick"
           permanent: false
           downgradable: false
@@ -372,24 +379,24 @@ shop:
           weight: 0
           tiers:
             1:
-              material: STICK
+              material: "STICK"
               amount: 1
               enchanted: true
               price: 10
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: STICK
+                  material: "STICK"
                   amount: 1
                   enchantments:
                     1: "KNOCKBACK:1"
     3:
-      id: armor
+      id: "armor"
       name: "Armor"
-      icon: CHAINMAIL_BOOTS
+      icon: "CHAINMAIL_BOOTS"
       content:
         1:
-          id: chainmail
+          id: "chainmail"
           name: "Chainmail Armor"
           permanent: true
           downgradable: false
@@ -397,22 +404,22 @@ shop:
           weight: 0
           tiers:
             1:
-              material: CHAINMAIL_BOOTS
+              material: "CHAINMAIL_BOOTS"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: CHAINMAIL_BOOTS
+                  material: "CHAINMAIL_BOOTS"
                   amount: 1
                   auto_equip: true
                 2:
-                  material: CHAINMAIL_LEGGINGS
+                  material: "CHAINMAIL_LEGGINGS"
                   amount: 1
                   auto_equip: true
         2:
-          id: iron_armor
+          id: "iron_armor"
           name: "Iron Armor"
           permanent: true
           downgradable: false
@@ -420,22 +427,22 @@ shop:
           weight: 1
           tiers:
             1:
-              material: IRON_BOOTS
+              material: "IRON_BOOTS"
               amount: 1
               enchanted: false
               price: 12
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: IRON_BOOTS
+                  material: "IRON_BOOTS"
                   amount: 1
                   auto_equip: true
                 2:
-                  material: IRON_LEGGINGS
+                  material: "IRON_LEGGINGS"
                   amount: 1
                   auto_equip: true
         3:
-          id: diamond_armor
+          id: "diamond_armor"
           name: "Diamond Armor"
           permanent: true
           downgradable: false
@@ -443,27 +450,27 @@ shop:
           weight: 2
           tiers:
             1:
-              material: DIAMOND_BOOTS
+              material: "DIAMOND_BOOTS"
               amount: 1
               enchanted: false
               price: 6
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: DIAMOND_BOOTS
+                  material: "DIAMOND_BOOTS"
                   amount: 1
                   auto_equip: true
                 2:
-                  material: DIAMOND_LEGGINGS
+                  material: "DIAMOND_LEGGINGS"
                   amount: 1
                   auto_equip: true
     4:
-      id: tools
+      id: "tools"
       name: "Tools"
-      icon: STONE_PICKAXE
+      icon: "STONE_PICKAXE"
       content:
         1:
-          id: shears
+          id: "shears"
           name: "Shears"
           permanent: true
           downgradable: false
@@ -471,17 +478,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: SHEARS
+              material: "SHEARS"
               amount: 1
               enchanted: false
               price: 20
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: SHEARS
+                  material: "SHEARS"
                   amount: 1
         2:
-          id: pickaxe
+          id: "pickaxe"
           name: "Pickaxe"
           permanent: true
           downgradable: true
@@ -489,54 +496,54 @@ shop:
           weight: 0
           tiers:
             1:
-              material: WOODEN_PICKAXE
+              material: "WOODEN_PICKAXE"
               amount: 1
               enchanted: false
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WOODEN_PICKAXE
+                  material: "WOODEN_PICKAXE"
                   amount: 1
             2:
-              material: IRON_PICKAXE
+              material: "IRON_PICKAXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: IRON_PICKAXE
+                  material: "IRON_PICKAXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:2"
             3:
-              material: GOLDEN_PICKAXE
+              material: "GOLDEN_PICKAXE"
               amount: 1
               enchanted: true
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_PICKAXE
+                  material: "GOLDEN_PICKAXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:3"
                     2: "DAMAGE_ALL:2"
             4:
-              material: DIAMOND_PICKAXE
+              material: "DIAMOND_PICKAXE"
               amount: 1
               enchanted: true
               price: 6
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: DIAMOND_PICKAXE
+                  material: "DIAMOND_PICKAXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:3"
         3:
-          id: axe
+          id: "axe"
           name: "Axe"
           permanent: true
           downgradable: true
@@ -544,60 +551,60 @@ shop:
           weight: 0
           tiers:
             1:
-              material: WOODEN_AXE
+              material: "WOODEN_AXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: WOODEN_AXE
+                  material: "WOODEN_AXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:1"
             2:
-              material: IRON_AXE
+              material: "IRON_AXE"
               amount: 1
               enchanted: true
               price: 10
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: IRON_AXE
+                  material: "IRON_AXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:1"
             3:
-              material: GOLDEN_AXE
+              material: "GOLDEN_AXE"
               amount: 1
               enchanted: true
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_AXE
+                  material: "GOLDEN_AXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:2"
             4:
-              material: DIAMOND_AXE
+              material: "DIAMOND_AXE"
               amount: 1
               enchanted: true
               price: 6
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: DIAMOND_AXE
+                  material: "DIAMOND_AXE"
                   amount: 1
                   enchantments:
                     1: "DIG_SPEED:3"
     5:
-      id: ranged
+      id: "ranged"
       name: "Ranged"
-      icon: BOW
+      icon: "BOW"
       content:
         1:
-          id: arrow
+          id: "arrow"
           name: "Arrow"
           permanent: false
           downgradable: false
@@ -605,17 +612,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: ARROW
+              material: "ARROW"
               amount: 8
               enchanted: false
               price: 2
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: ARROW
+                  material: "ARROW"
                   amount: 8
         2:
-          id: bow1
+          id: "bow1"
           name: "Bow"
           permanent: false
           downgradable: false
@@ -623,17 +630,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: false
               price: 12
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
         3:
-          id: bow2
+          id: "bow2"
           name: "Power Bow"
           permanent: false
           downgradable: false
@@ -641,19 +648,19 @@ shop:
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: true
               price: 24
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
                   enchantments:
                     1: "ARROW_DAMAGE:1"
         4:
-          id: bow3
+          id: "bow3"
           name: "Punch Bow"
           permanent: false
           downgradable: false
@@ -661,25 +668,25 @@ shop:
           weight: 0
           tiers:
             1:
-              material: BOW
+              material: "BOW"
               amount: 1
               enchanted: true
               price: 6
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: BOW
+                  material: "BOW"
                   amount: 1
                   enchantments:
                     1: "ARROW_DAMAGE:1"
                     2: "ARROW_KNOCKBACK:1"
     6:
-      id: potions
+      id: "potions"
       name: "Potions"
-      icon: BREWING_STAND
+      icon: "BREWING_STAND"
       content:
         1:
-          id: speed_potion
+          id: "speed_potion"
           name: "Speed Potion"
           permanent: false
           downgradable: false
@@ -687,20 +694,20 @@ shop:
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 1
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#33EBFF"
                   effects:
                     1: "SPEED:900:1:true:true"
         2:
-          id: jump_potion
+          id: "jump_potion"
           name: "Jump Potion"
           permanent: false
           downgradable: false
@@ -708,20 +715,20 @@ shop:
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 1
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#22FF4C"
                   effects:
                     1: "JUMP:900:4:true:true"
         3:
-          id: invisibility
+          id: "invisibility"
           name: "Invisibility Potion"
           permanent: false
           downgradable: false
@@ -729,25 +736,25 @@ shop:
           weight: 0
           tiers:
             1:
-              material: POTION
+              material: "POTION"
               amount: 1
               enchanted: false
               price: 2
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: POTION
+                  material: "POTION"
                   amount: 1
                   potion_color: "#F6F6F6"
                   effects:
                     1: "INVISIBILITY:600:0:true:true"
     7:
-      id: utility
+      id: "utility"
       name: "Utility"
-      icon: TNT
+      icon: "TNT"
       content:
         1:
-          id: golden_apple
+          id: "golden_apple"
           name: "Golden Apple"
           permanent: false
           downgradable: false
@@ -755,17 +762,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: GOLDEN_APPLE
+              material: "GOLDEN_APPLE"
               amount: 1
               enchanted: false
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: GOLDEN_APPLE
+                  material: "GOLDEN_APPLE"
                   amount: 1
         2:
-          id: bedbug
+          id: "bedbug"
           name: "Bedbug"
           permanent: false
           downgradable: false
@@ -773,18 +780,18 @@ shop:
           weight: 0
           tiers:
             1:
-              material: SNOWBALL
+              material: "SNOWBALL"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: SNOWBALL
+                  material: "SNOWBALL"
                   amount: 1
-                  special: bedbug
+                  special: "bedbug"
         3:
-          id: dream_defender
+          id: "dream_defender"
           name: "Dream Defender"
           permanent: false
           downgradable: false
@@ -792,18 +799,18 @@ shop:
           weight: 0
           tiers:
             1:
-              material: HORSE_SPAWN_EGG
+              material: "HORSE_SPAWN_EGG"
               amount: 1
               enchanted: false
               price: 120
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: HORSE_SPAWN_EGG
+                  material: "HORSE_SPAWN_EGG"
                   amount: 1
-                  special: dream_defender
+                  special: "dream_defender"
         4:
-          id: fireball
+          id: "fireball"
           name: "Fireball"
           permanent: false
           downgradable: false
@@ -811,18 +818,18 @@ shop:
           weight: 0
           tiers:
             1:
-              material: FIRE_CHARGE
+              material: "FIRE_CHARGE"
               amount: 1
               enchanted: false
               price: 40
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: FIRE_CHARGE
+                  material: "FIRE_CHARGE"
                   amount: 1
-                  special: fireball
+                  special: "fireball"
         5:
-          id: tnt
+          id: "tnt"
           name: "TNT"
           permanent: false
           downgradable: false
@@ -830,17 +837,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: TNT
+              material: "TNT"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: TNT
+                  material: "TNT"
                   amount: 1
         6:
-          id: ender_pearl
+          id: "ender_pearl"
           name: "Ender Pearl"
           permanent: false
           downgradable: false
@@ -848,17 +855,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: ENDER_PEARL
+              material: "ENDER_PEARL"
               amount: 1
               enchanted: false
               price: 4
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: ENDER_PEARL
+                  material: "ENDER_PEARL"
                   amount: 1
         7:
-          id: water_bucket
+          id: "water_bucket"
           name: "Water Bucket"
           permanent: false
           downgradable: false
@@ -866,17 +873,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: WATER_BUCKET
+              material: "WATER_BUCKET"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: WATER_BUCKET
+                  material: "WATER_BUCKET"
                   amount: 1
         8:
-          id: bridge_egg
+          id: "bridge_egg"
           name: "Bridge Egg"
           permanent: false
           downgradable: false
@@ -884,18 +891,18 @@ shop:
           weight: 0
           tiers:
             1:
-              material: EGG
+              material: "EGG"
               amount: 1
               enchanted: false
               price: 3
-              currency: emerald
+              currency: "emerald"
               buy_items:
                 1:
-                  material: EGG
+                  material: "EGG"
                   amount: 1
-                  special: bridge_egg
+                  special: "bridge_egg"
         9:
-          id: magic_milk
+          id: "magic_milk"
           name: "Magic Milk"
           permanent: false
           downgradable: false
@@ -903,18 +910,18 @@ shop:
           weight: 0
           tiers:
             1:
-              material: MILK_BUCKET
+              material: "MILK_BUCKET"
               amount: 1
               enchanted: false
               price: 4
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: MILK_BUCKET
+                  material: "MILK_BUCKET"
                   amount: 1
-                  special: magic_milk
+                  special: "magic_milk"
         10:
-          id: sponge
+          id: "sponge"
           name: "Sponge"
           permanent: false
           downgradable: false
@@ -922,17 +929,17 @@ shop:
           weight: 0
           tiers:
             1:
-              material: SPONGE
+              material: "SPONGE"
               amount: 1
               enchanted: false
               price: 3
-              currency: gold
+              currency: "gold"
               buy_items:
                 1:
-                  material: SPONGE
+                  material: "SPONGE"
                   amount: 1
         11:
-          id: tower
+          id: "tower"
           name: "Tower"
           permanent: false
           downgradable: false
@@ -940,13 +947,13 @@ shop:
           weight: 0
           tiers:
             1:
-              material: CHEST
+              material: "CHEST"
               amount: 1
               enchanted: false
               price: 24
-              currency: iron
+              currency: "iron"
               buy_items:
                 1:
-                  material: CHEST
+                  material: "CHEST"
                   amount: 1
-                  special: tower
+                  special: "tower"

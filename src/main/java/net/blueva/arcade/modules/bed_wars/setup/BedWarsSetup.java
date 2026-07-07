@@ -105,21 +105,21 @@ public class BedWarsSetup implements GameSetupHandler {
     private boolean handleTeamConfig(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(2)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("team.usage"));
+                    getSetupMessage(context.getPlayer(), "team.usage"));
             return true;
         }
 
         String setting = context.getHandlerArg(0);
         if (setting == null || (!setting.equalsIgnoreCase("count") && !setting.equalsIgnoreCase("size"))) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("team.usage"));
+                    getSetupMessage(context.getPlayer(), "team.usage"));
             return true;
         }
 
         String valueRaw = context.getHandlerArg(1);
         if (valueRaw == null || !isNumber(valueRaw)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    module.getCoreConfig().getLanguage("admin_commands.errors.invalid_number")
+                    module.getCoreConfig().getLanguage(context.getPlayer(), "admin_commands.errors.invalid_number")
                             .replace("{value}", valueRaw == null ? "" : valueRaw));
             return true;
         }
@@ -127,17 +127,17 @@ public class BedWarsSetup implements GameSetupHandler {
         int value = Integer.parseInt(valueRaw);
         if (value <= 0) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("team.invalid_value")
+                    getSetupMessage(context.getPlayer(), "team.invalid_value")
                             .replace("{setting}", setting));
             return true;
         }
 
         if (setting.equalsIgnoreCase("count") && value < 2) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("team.invalid_count"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "team.invalid_count"));
             return true;
         }
         if (setting.equalsIgnoreCase("size") && value < 1) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("team.invalid_size"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "team.invalid_size"));
             return true;
         }
 
@@ -152,7 +152,7 @@ public class BedWarsSetup implements GameSetupHandler {
         int maxPlayers = context.getData().getArenaInt("arena.basic.max_players", 0);
         if (teamCount > 0 && teamSize > 0 && maxPlayers > 0 && teamCount * teamSize > maxPlayers) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("team.invalid_limit")
+                    getSetupMessage(context.getPlayer(), "team.invalid_limit")
                             .replace("{max_players}", String.valueOf(maxPlayers)));
             return true;
         }
@@ -161,7 +161,7 @@ public class BedWarsSetup implements GameSetupHandler {
         context.getData().save();
 
         context.getMessagesAPI().sendRaw(context.getPlayer(),
-                getSetupMessage("team.success")
+                getSetupMessage(context.getPlayer(), "team.success")
                         .replace("{game}", context.getGameId())
                         .replace("{arena_id}", String.valueOf(context.getArenaId()))
                         .replace("{setting}", setting.toLowerCase())
@@ -173,18 +173,18 @@ public class BedWarsSetup implements GameSetupHandler {
 
     private boolean handleBed(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("bed.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "bed.usage"));
             return true;
         }
 
         String action = context.getHandlerArg(0);
         if (!"set".equalsIgnoreCase(action)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("bed.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "bed.usage"));
             return true;
         }
 
         if (!context.hasHandlerArgs(2)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("bed.set_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "bed.set_usage"));
             return true;
         }
 
@@ -206,7 +206,7 @@ public class BedWarsSetup implements GameSetupHandler {
 
         Block targetBlock = player.getTargetBlockExact(5);
         if (targetBlock == null || targetBlock.getType() == Material.AIR) {
-            context.getMessagesAPI().sendRaw(player, getSetupMessage("bed.must_look_at_block"));
+            context.getMessagesAPI().sendRaw(player, getSetupMessage(context.getPlayer(), "bed.must_look_at_block"));
             return true;
         }
 
@@ -215,7 +215,7 @@ public class BedWarsSetup implements GameSetupHandler {
         context.getData().setLocation(basePath, bedLoc);
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(player, getSetupMessage("bed.set")
+        context.getMessagesAPI().sendRaw(player, getSetupMessage(context.getPlayer(), "bed.set")
                 .replace("{team}", teamId));
         return true;
     }
@@ -225,13 +225,13 @@ public class BedWarsSetup implements GameSetupHandler {
 
     private boolean handleTeamSpawn(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(2)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("team_spawn.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "team_spawn.usage"));
             return true;
         }
 
         String teamId = normalizeTeamId(context.getHandlerArg(1));
         if (teamId == null) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage("team_spawn.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), getSetupMessage(context.getPlayer(), "team_spawn.usage"));
             sendTeamIdRangeMessage(context);
             return true;
         }
@@ -251,7 +251,7 @@ public class BedWarsSetup implements GameSetupHandler {
         context.getData().setLocation(path, location);
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(player, getSetupMessage("team_spawn.set")
+        context.getMessagesAPI().sendRaw(player, getSetupMessage(context.getPlayer(), "team_spawn.set")
                 .replace("{team}", teamId));
         return true;
     }
@@ -261,14 +261,14 @@ public class BedWarsSetup implements GameSetupHandler {
     private boolean handleRegion(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("region.usage"));
+                    getSetupMessage(context.getPlayer(), "region.usage"));
             return true;
         }
 
         String action = context.getHandlerArg(0);
         if (action == null) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("region.usage"));
+                    getSetupMessage(context.getPlayer(), "region.usage"));
             return true;
         }
 
@@ -277,13 +277,13 @@ public class BedWarsSetup implements GameSetupHandler {
             context.getData().remove("regeneration.regions");
             context.getData().save();
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("region.cleared"));
+                    getSetupMessage(context.getPlayer(), "region.cleared"));
             return true;
         }
 
         if (!"set".equalsIgnoreCase(action)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    getSetupMessage("region.usage"));
+                    getSetupMessage(context.getPlayer(), "region.usage"));
             return true;
         }
 
@@ -294,7 +294,7 @@ public class BedWarsSetup implements GameSetupHandler {
 
         if (!context.getSelection().hasCompleteSelection(player)) {
             context.getMessagesAPI().sendRaw(player,
-                    getSetupMessage("region.must_use_stick"));
+                    getSetupMessage(context.getPlayer(), "region.must_use_stick"));
             return true;
         }
 
@@ -310,7 +310,7 @@ public class BedWarsSetup implements GameSetupHandler {
         int blocks = x * y * z;
 
         context.getMessagesAPI().sendRaw(player,
-                getSetupMessage("region.set")
+                getSetupMessage(context.getPlayer(), "region.set")
                         .replace("{blocks}", String.valueOf(blocks))
                         .replace("{x}", String.valueOf(x))
                         .replace("{y}", String.valueOf(y))
@@ -320,8 +320,8 @@ public class BedWarsSetup implements GameSetupHandler {
 
 
 
-    private String getSetupMessage(String key) {
-        return SetupSupport.message(module, key);
+    private String getSetupMessage(Player player, String key) {
+        return SetupSupport.message(module, player, key);
     }
 
     private boolean isNumber(String value) {

@@ -36,6 +36,11 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 import java.util.Set;
+import net.blueva.arcade.api.setup.ModuleSetupCommand;
+import net.blueva.arcade.api.setup.ModuleSetupMetadata;
+import net.blueva.arcade.api.setup.ModuleSetupStep;
+import net.blueva.arcade.api.setup.ModuleSetupStatusCheck;
+import java.util.List;
 
 public class BedWarsModule implements GameModule<Player, Location, World, Material, ItemStack, Sound, Block, Entity, Listener, EventPriority> {
 
@@ -83,8 +88,8 @@ public class BedWarsModule implements GameModule<Player, Location, World, Materi
             voteMenu.registerGame(
                     moduleInfo.getId(),
                     Material.valueOf(moduleConfig.getString("menus.vote.item")),
-                    moduleConfig.getStringFrom("language.yml", "vote_menu.name"),
-                    moduleConfig.getStringListFrom("language.yml", "vote_menu.lore")
+                    moduleConfig.getTranslation(null, "vote_menu.name"),
+                    moduleConfig.getTranslationList(null, "vote_menu.lore")
             );
         }
     }
@@ -170,23 +175,22 @@ public class BedWarsModule implements GameModule<Player, Location, World, Materi
     }
 
     private void registerConfigs() {
-        moduleConfig.register("language.yml", 1);
-        moduleConfig.register("settings.yml", 1);
-        moduleConfig.register("achievements.yml", 1);
-        moduleConfig.register("store.yml", 1);
+        moduleConfig.register("settings.yml");
+        moduleConfig.register("achievements.yml");
+        moduleConfig.register("store.yml");
         moduleConfig.registerCopyOnly("cage.yml");
-        moduleConfig.register("menus/java/bed_wars_shop.yml", 1);
-        moduleConfig.register("menus/java/bed_wars_upgrades.yml", 1);
-        moduleConfig.register("menus/bedrock/bed_wars_shop.yml", 2);
-        moduleConfig.register("menus/bedrock/bed_wars_upgrades.yml", 2);
-        moduleConfig.register("menus/java/bed_wars_vote_main.yml", 1);
-        moduleConfig.register("menus/java/bed_wars_vote_hearts.yml", 1);
-        moduleConfig.register("menus/java/bed_wars_vote_time.yml", 1);
-        moduleConfig.register("menus/java/bed_wars_vote_weather.yml", 1);
-        moduleConfig.register("menus/bedrock/bed_wars_vote_main.yml", 1);
-        moduleConfig.register("menus/bedrock/bed_wars_vote_hearts.yml", 1);
-        moduleConfig.register("menus/bedrock/bed_wars_vote_time.yml", 1);
-        moduleConfig.register("menus/bedrock/bed_wars_vote_weather.yml", 1);
+        moduleConfig.register("menus/java/bed_wars_shop.yml");
+        moduleConfig.register("menus/java/bed_wars_upgrades.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_shop.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_upgrades.yml");
+        moduleConfig.register("menus/java/bed_wars_vote_main.yml");
+        moduleConfig.register("menus/java/bed_wars_vote_hearts.yml");
+        moduleConfig.register("menus/java/bed_wars_vote_time.yml");
+        moduleConfig.register("menus/java/bed_wars_vote_weather.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_vote_main.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_vote_hearts.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_vote_time.yml");
+        moduleConfig.register("menus/bedrock/bed_wars_vote_weather.yml");
     }
 
     private void registerMenuActions() {
@@ -206,12 +210,12 @@ public class BedWarsModule implements GameModule<Player, Location, World, Materi
             return;
         }
 
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("wins", moduleConfig.getStringFrom("language.yml", "stats.labels.wins", "Wins"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.wins", "BedWars victories"), StatScope.MODULE));
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("games_played", moduleConfig.getStringFrom("language.yml", "stats.labels.games_played", "Games Played"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.games_played", "BedWars matches played"), StatScope.MODULE));
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("kills", moduleConfig.getStringFrom("language.yml", "stats.labels.kills", "Eliminations"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.kills", "Opponents eliminated in BedWars"), StatScope.MODULE));
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("deaths", moduleConfig.getStringFrom("language.yml", "stats.labels.deaths", "Deaths"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.deaths", "Times eliminated in BedWars"), StatScope.MODULE));
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("beds_broken", moduleConfig.getStringFrom("language.yml", "stats.labels.beds_broken", "Beds Broken"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.beds_broken", "Enemy beds destroyed in BedWars"), StatScope.MODULE));
-        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("final_kills", moduleConfig.getStringFrom("language.yml", "stats.labels.final_kills", "Final Kills"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.final_kills", "Opponents eliminated without bed in BedWars"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("wins", moduleConfig.getTranslation(null, "stats.labels.wins"), moduleConfig.getTranslation(null, "stats.descriptions.wins"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("games_played", moduleConfig.getTranslation(null, "stats.labels.games_played"), moduleConfig.getTranslation(null, "stats.descriptions.games_played"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("kills", moduleConfig.getTranslation(null, "stats.labels.kills"), moduleConfig.getTranslation(null, "stats.descriptions.kills"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("deaths", moduleConfig.getTranslation(null, "stats.labels.deaths"), moduleConfig.getTranslation(null, "stats.descriptions.deaths"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("beds_broken", moduleConfig.getTranslation(null, "stats.labels.beds_broken"), moduleConfig.getTranslation(null, "stats.descriptions.beds_broken"), StatScope.MODULE));
+        statsAPI.registerModuleStat(moduleInfo.getId(), new StatDefinition("final_kills", moduleConfig.getTranslation(null, "stats.labels.final_kills"), moduleConfig.getTranslation(null, "stats.descriptions.final_kills"), StatScope.MODULE));
     }
 
     private void registerAchievements() {
@@ -220,4 +224,44 @@ public class BedWarsModule implements GameModule<Player, Location, World, Materi
             achievementsAPI.registerModuleAchievements(moduleInfo.getId(), "achievements.yml");
         }
     }
+
+    @Override
+    public ModuleSetupMetadata getSetupMetadata() {
+        return new ModuleSetupMetadata() {
+
+            @Override
+            public List<ModuleSetupStep> getSetupSteps() {
+                return List.of(
+                        new ModuleSetupStep("bed", true, "Configure Bed", "Configure the module-specific bed setup data.", List.of("/baa game <arena> bed_wars bed"), "team bed location"),
+                        new ModuleSetupStep("npc", true, "Configure Npc", "Configure the module-specific npc setup data.", List.of("/baa game <arena> bed_wars npc"), "NPC type and location"),
+                        new ModuleSetupStep("region", true, "Configure Region", "Configure the module-specific region setup data.", List.of("/baa game <arena> bed_wars region"), "selection region"),
+                        new ModuleSetupStep("spawner", true, "Configure Spawner", "Configure the module-specific spawner setup data.", List.of("/baa game <arena> bed_wars spawner"), "spawner type and location"),
+                        new ModuleSetupStep("team", true, "Configure Team", "Configure the module-specific team setup data.", List.of("/baa game <arena> bed_wars team"), "team count and team size")
+                );
+            }
+
+            @Override
+            public List<ModuleSetupCommand> getSetupCommands() {
+                return List.of(
+                        new ModuleSetupCommand("bed", "/baa game <arena> bed_wars bed", "Configure bed setup data.", true),
+                        new ModuleSetupCommand("npc", "/baa game <arena> bed_wars npc", "Configure npc setup data.", true),
+                        new ModuleSetupCommand("region", "/baa game <arena> bed_wars region", "Configure region setup data.", true),
+                        new ModuleSetupCommand("spawner", "/baa game <arena> bed_wars spawner", "Configure spawner setup data.", true),
+                        new ModuleSetupCommand("team", "/baa game <arena> bed_wars team", "Configure team setup data.", true)
+                );
+            }
+
+            @Override
+            public List<ModuleSetupStatusCheck<?, ?, ?>> getStatusChecks() {
+                return List.of(
+                        new ModuleSetupStatusCheck<>("bed", true, "Set at least one team bed.", context -> context.getData().has("game.play_area.beds")),
+                        new ModuleSetupStatusCheck<>("npc", true, "Add at least one shop NPC.", context -> context.getData().has("game.play_area.npc_registry") || context.getData().has("game.npc_registry")),
+                        new ModuleSetupStatusCheck<>("region", true, "Select the play area region.", context -> (context.getData().has("game.play_area.bounds.min.x") && context.getData().has("game.play_area.bounds.max.x")) || (context.getData().has("game.region.bounds.min.x") && context.getData().has("game.region.bounds.max.x"))),
+                        new ModuleSetupStatusCheck<>("spawner", true, "Add at least one resource spawner.", context -> context.getData().has("game.play_area.spawner_registry") || context.getData().has("game.spawner_registry")),
+                        new ModuleSetupStatusCheck<>("team", true, "Set team count and team size.", context -> context.getData().getInt("teams.count", 0) > 0 && context.getData().getInt("teams.size", 0) > 0)
+                );
+            }
+        };
+    }
+
 }

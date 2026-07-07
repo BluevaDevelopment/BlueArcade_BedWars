@@ -19,13 +19,13 @@ final class BedWarsNpcSetupHandler {
 
     boolean handle(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.usage"));
             return true;
         }
 
         String action = context.getHandlerArg(0);
         if (action == null) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.usage"));
             return true;
         }
 
@@ -41,25 +41,25 @@ final class BedWarsNpcSetupHandler {
             return add(context);
         }
 
-        context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.usage"));
+        context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.usage"));
         return true;
     }
 
     private boolean add(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(2)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.add_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.add_usage"));
             return true;
         }
 
         String typeName = context.getHandlerArg(1);
         if (typeName == null || typeName.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.add_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.add_usage"));
             return true;
         }
 
         String typeUpper = typeName.toUpperCase(Locale.ROOT);
         if (!typeUpper.equals("STORE") && !typeUpper.equals("UPGRADE")) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.invalid_type")
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.invalid_type")
                     .replace("{type}", typeName));
             return true;
         }
@@ -85,7 +85,7 @@ final class BedWarsNpcSetupHandler {
         context.getData().setString("game.play_area.npc_registry", String.join(",", registry));
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(player, message("npc.added")
+        context.getMessagesAPI().sendRaw(player, message(context.getPlayer(), "npc.added")
                 .replace("{id}", npcId)
                 .replace("{type}", typeUpper));
         return true;
@@ -97,24 +97,24 @@ final class BedWarsNpcSetupHandler {
             registryRaw = context.getData().getString("game.npc_registry");
         }
         if (registryRaw == null || registryRaw.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.list_empty"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.list_empty"));
             return true;
         }
 
         Set<String> entries = SetupSupport.parseRegistry(registryRaw);
         if (entries.isEmpty()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.list_empty"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.list_empty"));
             return true;
         }
 
-        context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.list_header"));
+        context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.list_header"));
         for (String npcId : entries) {
             String basePath = "game.play_area.npcs." + npcId;
             String type = context.getData().getString(basePath + ".type");
             if (type == null || type.isBlank()) {
                 continue;
             }
-            String line = message("npc.list_line")
+            String line = message(context.getPlayer(), "npc.list_line")
                     .replace("{id}", npcId)
                     .replace("{type}", type);
             context.getMessagesAPI().sendRaw(context.getPlayer(), line);
@@ -124,26 +124,26 @@ final class BedWarsNpcSetupHandler {
 
     private boolean remove(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(2)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.remove_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.remove_usage"));
             return true;
         }
 
         String npcId = context.getHandlerArg(1);
         if (npcId == null || npcId.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.remove_usage"));
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.remove_usage"));
             return true;
         }
 
         String registryRaw = context.getData().getString("game.play_area.npc_registry");
         if (registryRaw == null || registryRaw.isBlank()) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.not_found")
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.not_found")
                     .replace("{id}", npcId));
             return true;
         }
 
         Set<String> registry = SetupSupport.parseRegistry(registryRaw);
         if (!registry.contains(npcId)) {
-            context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.not_found")
+            context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.not_found")
                     .replace("{id}", npcId));
             return true;
         }
@@ -153,12 +153,12 @@ final class BedWarsNpcSetupHandler {
         context.getData().setString("game.play_area.npc_registry", String.join(",", registry));
         context.getData().save();
 
-        context.getMessagesAPI().sendRaw(context.getPlayer(), message("npc.removed")
+        context.getMessagesAPI().sendRaw(context.getPlayer(), message(context.getPlayer(), "npc.removed")
                 .replace("{id}", npcId));
         return true;
     }
 
-    private String message(String key) {
-        return SetupSupport.message(module, key);
+    private String message(Player player, String key) {
+        return SetupSupport.message(module, player, key);
     }
 }

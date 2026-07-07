@@ -211,12 +211,12 @@ final class BedWarsRuntimeService {
                 return;
             }
 
-            String actionBarTemplate = game.moduleConfig.getStringFrom("language.yml", "messages.action_bar.in_game");
             for (Player player : allPlayers) {
                 if (!player.isOnline()) {
                     continue;
                 }
 
+                String actionBarTemplate = game.moduleConfig.getTranslation(player, "messages.action_bar.in_game");
                 Map<String, String> customPlaceholders = game.placeholderService.buildPlaceholders(player);
                 context.getMessagesAPI().sendActionBar(player, actionBarTemplate
                         .replace("{team}", customPlaceholders.getOrDefault("team", "-"))
@@ -287,17 +287,16 @@ final class BedWarsRuntimeService {
             state.setGlobalSpawnerMultiplier(type, event.getMultiplier());
         }
 
-        String template = game.moduleConfig.getStringFrom("language.yml", "messages.generator_upgrade",
-                "<gold><bold>⚡ GENERATOR UPGRADE</bold></gold> <gray>-</gray> <yellow>{label}</yellow> <gray>spawners are now</gray> <green>{multiplier}x</green> <gray>faster!</gray>");
         String multiplierFormatted = formatMultiplier(event.getMultiplier());
-        String message = template
-                .replace("{label}", event.getLabel())
-                .replace("{type}", event.getType())
-                .replace("{multiplier}", multiplierFormatted);
-
         for (Player player : context.getPlayers()) {
             if (player.isOnline()) {
-                context.getMessagesAPI().sendRaw(player, message);
+                String template = game.moduleConfig.getTranslation(player, "messages.generator_upgrade");
+                if (template != null) {
+                    context.getMessagesAPI().sendRaw(player, template
+                            .replace("{label}", event.getLabel())
+                            .replace("{type}", event.getType())
+                            .replace("{multiplier}", multiplierFormatted));
+                }
             }
         }
     }

@@ -1,10 +1,17 @@
-file_version: 1
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
 category:
-  id: bed_wars
+  id: "bed_wars"
   name: "Bed Wars"
   description:
     - "Achievements tied to Bed Wars."
-  icon: DRAGON_HEAD
+  icon: "DRAGON_HEAD"
   sort_order: 22
 
 achievements:
@@ -12,7 +19,7 @@ achievements:
     name: "Skybound"
     description:
       - "Play Bed Wars matches."
-    icon: DRAGON_HEAD
+    icon: "DRAGON_HEAD"
     phases:
       1:
         name: "First flight"
@@ -84,7 +91,7 @@ achievements:
     name: "Eliminator"
     description:
       - "Eliminate opponents."
-    icon: DIAMOND_SWORD
+    icon: "DIAMOND_SWORD"
     phases:
       1:
         name: "Opening strike"
@@ -156,7 +163,7 @@ achievements:
     name: "Champion"
     description:
       - "Win Bed Wars matches."
-    icon: NETHER_STAR
+    icon: "NETHER_STAR"
     phases:
       1:
         name: "First banner"
@@ -228,7 +235,7 @@ achievements:
     name: "Bed Breaker"
     description:
       - "Destroy enemy team beds."
-    icon: RED_BED
+    icon: "RED_BED"
     phases:
       1:
         name: "First break"
@@ -300,7 +307,7 @@ achievements:
     name: "Final Killer"
     description:
       - "Eliminate players who have no bed."
-    icon: DIAMOND_SWORD
+    icon: "DIAMOND_SWORD"
     phases:
       1:
         name: "First final kill"
@@ -372,7 +379,7 @@ achievements:
     name: "Battle Hardened"
     description:
       - "Keep fighting even after many defeats."
-    icon: TOTEM_OF_UNDYING
+    icon: "TOTEM_OF_UNDYING"
     phases:
       1:
         name: "Bruised"

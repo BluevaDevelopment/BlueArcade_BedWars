@@ -289,9 +289,9 @@ public class SpawnerService {
 
 
         String typeLabelKey = "messages.spawner.hologram_" + def.getType().name().toLowerCase(Locale.ROOT);
-        String typeLabel = moduleConfig.getStringFrom("language.yml", typeLabelKey);
+        String typeLabel = moduleConfig.getTranslation(null, typeLabelKey);
         if (typeLabel == null) {
-            typeLabel = moduleConfig.getStringFrom("language.yml", "messages.spawner.hologram_label");
+            typeLabel = moduleConfig.getTranslation(null, "messages.spawner.hologram_label");
         }
         if (typeLabel == null) {
             typeLabel = "<white>{type}</white>";
@@ -300,7 +300,7 @@ public class SpawnerService {
 
 
         double multiplier = state != null ? state.getSpawnerMultiplier(def.getTeamId(), def.getType()) : 1.0;
-        String tierTemplate = moduleConfig.getStringFrom("language.yml", "messages.spawner.hologram_tier");
+        String tierTemplate = moduleConfig.getTranslation(null, "messages.spawner.hologram_tier");
         if (tierTemplate == null) {
             tierTemplate = "<yellow>Tier {tier}</yellow>";
         }
@@ -310,7 +310,7 @@ public class SpawnerService {
         String timeUntilNextTier = formatTimeUntilNextTier(def.getType(), state);
         String nextUpgradeLine = null;
         if (timeUntilNextTier != null) {
-            String nextUpgradeTemplate = moduleConfig.getStringFrom("language.yml", "messages.spawner.hologram_next_upgrade");
+            String nextUpgradeTemplate = moduleConfig.getTranslation(null, "messages.spawner.hologram_next_upgrade");
             if (nextUpgradeTemplate == null) {
                 nextUpgradeTemplate = "<gray>(Next upgrade in <white>{time}</white>)</gray>";
             }
@@ -320,11 +320,11 @@ public class SpawnerService {
 
         String countdownLine = null;
         if (remainingSeconds >= 0) {
-            String countdownTemplate = moduleConfig.getStringFrom("language.yml", "messages.spawner.hologram_countdown");
+            String countdownTemplate = moduleConfig.getTranslation(null, "messages.spawner.hologram_countdown");
             if (countdownTemplate == null) {
                 countdownTemplate = "<gray>Next drop in <white>{seconds}s</white></gray>";
             }
-            countdownLine = countdownTemplate.replace("{seconds}", String.valueOf(remainingSeconds));
+            countdownLine = countdownTemplate.replace("{seconds}", formatCountdownTime(remainingSeconds));
         }
 
         lines.add(typeLabel);
@@ -367,15 +367,8 @@ public class SpawnerService {
         if (seconds < 0) {
             return null;
         }
-        if (seconds < 60) {
-            return seconds + "s";
-        }
-        int minutes = seconds / 60;
-        int remainingSeconds = seconds % 60;
-        if (remainingSeconds == 0) {
-            return minutes + "m";
-        }
-        return minutes + "m " + remainingSeconds + "s";
+        int safeSeconds = Math.max(0, seconds);
+        return String.format("%02d:%02d", safeSeconds / 60, safeSeconds % 60);
     }
 
     private String toRomanNumeral(int n) {
@@ -492,4 +485,10 @@ public class SpawnerService {
         }
         return closestTeam;
     }
+
+    private static String formatCountdownTime(int seconds) {
+        int safeSeconds = Math.max(0, seconds);
+        return String.format("%02d:%02d", safeSeconds / 60, safeSeconds % 60);
+    }
+
 }

@@ -40,6 +40,8 @@ final class ShopServiceImpl {
   private static final String SHOP_FILE = "menus/java/bed_wars_shop.yml";
   private static final String BEDROCK_SHOP_FILE = "menus/bedrock/bed_wars_shop.yml";
   private static final String BEDROCK_IMAGE_BASE = "https://blueva.net/api/menu/items/1_21_10";
+  private static final String QUICK_BUY_DATA_KEY = "shop.quick_buy.entries";
+  private static final String QUICK_BUY_CUSTOMIZED_KEY = "shop.quick_buy.customized";
   private final ModuleConfigAPI moduleConfig;
   private final MenuAPI<Player, Material> menuAPI;
   private final BedWarsGame game;
@@ -79,6 +81,7 @@ final class ShopServiceImpl {
   public void loadShop() {
     categories.clear();
     quickBuyDefaults.clear();
+    playerQuickBuys.clear();
     String file = SHOP_FILE;
     loadShopSettings(file);
     for (int qbIndex = 1; qbIndex <= maxIndexScan; qbIndex++) {
@@ -412,16 +415,110 @@ final class ShopServiceImpl {
     return capitalizeItemName(contentId);
   }
 
-  private List<QuickBuyEntry> getPlayerQuickBuy(UUID playerId) {
+  private List<QuickBuyEntry> getPlayerQuickBuy(
+      Player player,
+      GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context) {
     return playerQuickBuys.computeIfAbsent(
-        playerId,
-        id -> {
-          List<QuickBuyEntry> copy = new ArrayList<>();
-          for (QuickBuyEntry entry : quickBuyDefaults) {
-            copy.add(new QuickBuyEntry(entry.categoryId(), entry.contentId(), entry.slot()));
-          }
-          return copy;
-        });
+        player.getUniqueId(), id -> loadPlayerQuickBuy(player, context));
+  }
+
+  private List<QuickBuyEntry> loadPlayerQuickBuy(
+      Player player,
+      GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context) {
+    if (context.getPersistentPlayerDataAPI() == null) {
+      return defaultQuickBuyEntries();
+    }
+    boolean customized =
+        context
+            .getPersistentPlayerDataAPI()
+            .get(player, moduleDataId(), QUICK_BUY_CUSTOMIZED_KEY, Boolean.class, false);
+    if (!customized) {
+      return defaultQuickBuyEntries();
+    }
+    List<?> rawEntries =
+        context
+            .getPersistentPlayerDataAPI()
+            .get(player, moduleDataId(), QUICK_BUY_DATA_KEY, List.class, List.of());
+    List<QuickBuyEntry> entries = new ArrayList<>();
+    for (Object rawEntry : rawEntries) {
+      QuickBuyEntry entry = parseQuickBuyEntry(String.valueOf(rawEntry));
+      if (entry != null && isValidQuickBuyEntry(entry) && !containsQuickBuyEntry(entries, entry)) {
+        entries.add(entry);
+      }
+    }
+    return entries;
+  }
+
+  private void savePlayerQuickBuy(
+      Player player,
+      GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+      List<QuickBuyEntry> entries) {
+    if (context.getPersistentPlayerDataAPI() == null) {
+      return;
+    }
+    List<String> serialized = new ArrayList<>();
+    for (QuickBuyEntry entry : entries) {
+      if (isValidQuickBuyEntry(entry) && !serialized.contains(serializeQuickBuyEntry(entry))) {
+        serialized.add(serializeQuickBuyEntry(entry));
+      }
+    }
+    context.getPersistentPlayerDataAPI().set(player, moduleDataId(), QUICK_BUY_CUSTOMIZED_KEY, true);
+    context.getPersistentPlayerDataAPI().set(player, moduleDataId(), QUICK_BUY_DATA_KEY, serialized);
+    context.getPersistentPlayerDataAPI().save(player);
+  }
+
+  private List<QuickBuyEntry> defaultQuickBuyEntries() {
+    List<QuickBuyEntry> copy = new ArrayList<>();
+    for (QuickBuyEntry entry : quickBuyDefaults) {
+      if (isValidQuickBuyEntry(entry) && !containsQuickBuyEntry(copy, entry)) {
+        copy.add(new QuickBuyEntry(entry.categoryId(), entry.contentId(), entry.slot()));
+      }
+    }
+    return copy;
+  }
+
+  private QuickBuyEntry parseQuickBuyEntry(String raw) {
+    if (raw == null || raw.isBlank()) {
+      return null;
+    }
+    String[] parts = raw.split("\\|", 3);
+    if (parts.length != 3) {
+      return null;
+    }
+    try {
+      return new QuickBuyEntry(parts[1], parts[2], Integer.parseInt(parts[0]));
+    } catch (NumberFormatException ignored) {
+      return null;
+    }
+  }
+
+  private String serializeQuickBuyEntry(QuickBuyEntry entry) {
+    return entry.slot() + "|" + entry.categoryId() + "|" + entry.contentId();
+  }
+
+  private boolean isValidQuickBuyEntry(QuickBuyEntry entry) {
+    if (entry == null || !quickBuySlots.contains(entry.slot())) {
+      return false;
+    }
+    ShopCategory category = categories.get(entry.categoryId());
+    return category != null && findContent(category, entry.contentId()) != null;
+  }
+
+  private boolean containsQuickBuyEntry(List<QuickBuyEntry> entries, QuickBuyEntry candidate) {
+    for (QuickBuyEntry entry : entries) {
+      if (entry.slot() == candidate.slot()
+          || (entry.categoryId().equals(candidate.categoryId())
+              && entry.contentId().equals(candidate.contentId()))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private String moduleDataId() {
+    return game.getModuleInfo() != null && game.getModuleInfo().getId() != null
+        ? game.getModuleInfo().getId()
+        : "bed_wars";
   }
 
   public void openShop(
@@ -455,7 +552,7 @@ final class ShopServiceImpl {
     String activeCategory = null;
     buildNavigation(items, activeCategory, player, context, state);
     ShopCache cache = getCache(context.getArenaId(), player.getUniqueId());
-    List<QuickBuyEntry> playerQB = getPlayerQuickBuy(player.getUniqueId());
+    List<QuickBuyEntry> playerQB = getPlayerQuickBuy(player, context);
     Map<Integer, QuickBuyEntry> occupied = new HashMap<>();
     for (QuickBuyEntry entry : playerQB) {
       occupied.put(entry.slot(), entry);
@@ -1446,7 +1543,7 @@ final class ShopServiceImpl {
     lastShiftClick.put(player.getUniqueId(), System.currentTimeMillis());
     String currentCategory =
         playerSelectedCategory.getOrDefault(context.getArenaId(), Map.of()).get(player);
-    List<QuickBuyEntry> playerQB = getPlayerQuickBuy(player.getUniqueId());
+    List<QuickBuyEntry> playerQB = getPlayerQuickBuy(player, context);
     if (currentCategory != null) {
       ShopCategory cat = categories.get(currentCategory);
       if (cat == null) return false;
@@ -1474,6 +1571,7 @@ final class ShopServiceImpl {
             }
             if (!occupied) {
               playerQB.add(new QuickBuyEntry(currentCategory, content.id(), qbSlot));
+              savePlayerQuickBuy(player, context, playerQB);
               String msg =
                   message("messages.shop.quick_buy_added", "<green>Added to Quick Buy!</green>");
               if (msg != null) context.getMessagesAPI().sendRaw(player, msg);
@@ -1493,6 +1591,7 @@ final class ShopServiceImpl {
         QuickBuyEntry entry = playerQB.get(i);
         if (entry.slot() == slot) {
           playerQB.remove(i);
+          savePlayerQuickBuy(player, context, playerQB);
           String msg =
               message("messages.shop.quick_buy_removed", "<red>Removed from Quick Buy.</red>");
           if (msg != null) context.getMessagesAPI().sendRaw(player, msg);
@@ -1610,7 +1709,7 @@ final class ShopServiceImpl {
   }
 
   private String message(String path, String fallback) {
-    return moduleConfig.getStringFrom("language.yml", path, fallback);
+    return moduleConfig.getTranslation(null, path);
   }
 
   private String menuText(String path, String fallback) {
