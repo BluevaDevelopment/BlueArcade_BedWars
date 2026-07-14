@@ -190,7 +190,7 @@ public class BedWarsGame {
                     }
                     teleportToTeamSpawn(context, state, player);
                     if (!spawnCageService.isEnabled()) {
-                        context.setPlayerSpectating(player, true);
+                        player.setGameMode(GameMode.SPECTATOR);
                     }
                 });
             }
