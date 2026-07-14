@@ -62,7 +62,9 @@ public class CombatService {
             return;
         }
 
-        if (context.getSpectators().contains(target) || context.isPlayerSpectating(target)) {
+        if (context.getSpectators().contains(target)
+                || target.getGameMode() == GameMode.SPECTATOR
+                || context.isPlayerSpectating(target)) {
             return;
         }
 
@@ -91,7 +93,6 @@ public class CombatService {
         if (canRespawn) {
             scheduleRespawn(context, target);
         } else {
-            context.setPlayerSpectating(target, true);
             context.eliminatePlayer(target, moduleConfig.getTranslation(target, "messages.eliminated"));
             game.checkForVictory(context);
         }
@@ -104,7 +105,7 @@ public class CombatService {
             delay = 1;
         }
 
-        context.setPlayerSpectating(player, true);
+        player.setGameMode(GameMode.SPECTATOR);
         String taskId = "arena_" + context.getArenaId() + "_respawn_" + player.getUniqueId();
         context.getSchedulerAPI().runLater(taskId, () -> {
             if (!player.isOnline() || !context.isPlayerPlaying(player)) {
