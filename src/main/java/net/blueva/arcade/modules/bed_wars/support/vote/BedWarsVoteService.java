@@ -53,6 +53,7 @@ public class BedWarsVoteService {
     private final String moduleId;
     private final BedWarsVoteMenuRepository menuRepository;
     private final Map<Integer, VoteState> waitingVoteStates = new ConcurrentHashMap<>();
+    private final Map<UUID, Long> voteCooldowns = new ConcurrentHashMap<>();
     private BedWarsGame game;
 
     public BedWarsVoteService(ModuleConfigAPI moduleConfig,
@@ -73,6 +74,7 @@ public class BedWarsVoteService {
     }
 
     public void clearWaitingVote(int arenaId, UUID playerId) {
+        voteCooldowns.remove(playerId);
         VoteState state = waitingVoteStates.get(arenaId);
         if (state == null) {
             return;
@@ -173,6 +175,7 @@ public class BedWarsVoteService {
                     voteState.castVote(player.getUniqueId(), category, option);
                 }
             }
+            voteCooldowns.remove(player.getUniqueId());
         }
         waitingVoteStates.remove(arenaId);
     }
@@ -393,8 +396,17 @@ public class BedWarsVoteService {
             sendMessage(context, player, "votes.messages.no_permission", option.category(), option.option());
             return true;
         }
+        long cooldownRemaining = getRemainingVoteCooldownSeconds(player.getUniqueId());
+        if (cooldownRemaining > 0) {
+            String message = moduleConfig.getTranslation(player, "votes.messages.cooldown");
+            if (message != null && !message.isBlank()) {
+                context.getMessagesAPI().sendRaw(player, message.replace("{time}", String.valueOf(cooldownRemaining)));
+            }
+            return true;
+        }
         if (voteState != null) {
             voteState.castVote(player.getUniqueId(), option.category(), option.option());
+            voteCooldowns.put(player.getUniqueId(), System.currentTimeMillis());
             broadcastVote(player, option.category(), option.option(), context, voteState);
         }
         return true;
@@ -410,7 +422,16 @@ public class BedWarsVoteService {
             sendWaitingMessage(player, "votes.messages.no_permission", option.category(), option.option());
             return false;
         }
+        long cooldownRemaining = getRemainingVoteCooldownSeconds(player.getUniqueId());
+        if (cooldownRemaining > 0) {
+            String message = moduleConfig.getTranslation(player, "votes.messages.cooldown");
+            if (message != null && !message.isBlank()) {
+                sendWaitingMessageRaw(player, message.replace("{time}", String.valueOf(cooldownRemaining)));
+            }
+            return true;
+        }
         waiting.castVote(player.getUniqueId(), option.category(), option.option());
+        voteCooldowns.put(player.getUniqueId(), System.currentTimeMillis());
         broadcastWaitingVote(player, option.category(), option.option(), waiting);
         return true;
     }
@@ -606,6 +627,33 @@ public class BedWarsVoteService {
             case TIME -> TIME_OPTIONS.contains(option);
             case WEATHER -> WEATHER_OPTIONS.contains(option);
         };
+    }
+
+    private long getVoteCooldownMillis() {
+        if (moduleConfig == null) {
+            return 0;
+        }
+        int seconds = moduleConfig.getInt("votes.cooldown_seconds", 5);
+        return seconds <= 0 ? 0 : seconds * 1000L;
+    }
+
+    private long getRemainingVoteCooldownSeconds(UUID playerId) {
+        if (playerId == null) {
+            return 0;
+        }
+        long cooldownMillis = getVoteCooldownMillis();
+        if (cooldownMillis <= 0) {
+            return 0;
+        }
+        Long lastVote = voteCooldowns.get(playerId);
+        if (lastVote == null) {
+            return 0;
+        }
+        long remainingMillis = cooldownMillis - (System.currentTimeMillis() - lastVote);
+        if (remainingMillis <= 0) {
+            return 0;
+        }
+        return (remainingMillis + 999) / 1000;
     }
 
     private boolean hasVotePermission(Player player, VoteCategory category, String option) {
