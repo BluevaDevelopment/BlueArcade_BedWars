@@ -405,9 +405,12 @@ public class BedWarsVoteService {
             return true;
         }
         if (voteState != null) {
+            String previousVote = voteState.getPlayerVote(player.getUniqueId(), option.category());
             voteState.castVote(player.getUniqueId(), option.category(), option.option());
             voteCooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-            broadcastVote(player, option.category(), option.option(), context, voteState);
+            if (!option.option().equals(previousVote)) {
+                broadcastVote(player, option.category(), option.option(), context, voteState);
+            }
         }
         return true;
     }
@@ -430,9 +433,12 @@ public class BedWarsVoteService {
             }
             return true;
         }
+        String previousVote = waiting.getPlayerVote(player.getUniqueId(), option.category());
         waiting.castVote(player.getUniqueId(), option.category(), option.option());
         voteCooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-        broadcastWaitingVote(player, option.category(), option.option(), waiting);
+        if (!option.option().equals(previousVote)) {
+            broadcastWaitingVote(player, option.category(), option.option(), waiting);
+        }
         return true;
     }
 
