@@ -437,13 +437,33 @@ public class BedWarsListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityExplode(EntityExplodeEvent event) {
         Entity entity = event.getEntity();
-        if (!(entity instanceof Fireball fireball)) return;
-        if (!(fireball.getShooter() instanceof Player player)) return;
-        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> ctx = game.getContext(player);
-        if (ctx != null && ctx.isPlayerPlaying(player)) {
-            event.setCancelled(true);
-            event.blockList().clear();
+        if (entity instanceof Fireball fireball) {
+            if (!(fireball.getShooter() instanceof Player player)) return;
+            GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> ctx = game.getContext(player);
+            if (ctx != null && ctx.isPlayerPlaying(player)) {
+                event.setCancelled(true);
+                event.blockList().clear();
+            }
+            return;
         }
+
+        // TNT and other explosions only break player-placed blocks, never the map or beds
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context =
+                game.getContextAtLocation(event.getLocation());
+        ArenaState state = game.getArenaState(context);
+        if (state == null) {
+            return;
+        }
+
+        event.blockList().removeIf(block -> {
+            Location blockLoc = block.getLocation();
+            boolean breakable = state.isPlayerPlacedBlock(blockLoc)
+                    && game.getBedService().findBedAtLocation(state, blockLoc) == null;
+            if (breakable) {
+                state.untrackPlacedBlock(blockLoc);
+            }
+            return !breakable;
+        });
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

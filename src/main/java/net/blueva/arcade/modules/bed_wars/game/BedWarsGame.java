@@ -347,6 +347,34 @@ public class BedWarsGame {
         return arenas.get(context.getArenaId());
     }
 
+    public GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> getContextAtLocation(Location location) {
+        if (location == null || location.getWorld() == null) {
+            return null;
+        }
+
+        for (ArenaState state : arenas.values()) {
+            GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = state.getContext();
+            if (context == null || context.getArenaAPI() == null) {
+                continue;
+            }
+            Location min = context.getArenaAPI().getBoundsMin();
+            Location max = context.getArenaAPI().getBoundsMax();
+            if (min == null || max == null || min.getWorld() == null
+                    || !min.getWorld().equals(location.getWorld())) {
+                continue;
+            }
+            double x = location.getX();
+            double y = location.getY();
+            double z = location.getZ();
+            if (x >= Math.min(min.getX(), max.getX()) && x <= Math.max(min.getX(), max.getX())
+                    && y >= Math.min(min.getY(), max.getY()) && y <= Math.max(min.getY(), max.getY())
+                    && z >= Math.min(min.getZ(), max.getZ()) && z <= Math.max(min.getZ(), max.getZ())) {
+                return context;
+            }
+        }
+        return null;
+    }
+
     public int getPlayerKills(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player player) { return gameplayService.getPlayerKills(context, player); }
 
     public void addPlayerKill(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player player) { gameplayService.addPlayerKill(context, player); }
