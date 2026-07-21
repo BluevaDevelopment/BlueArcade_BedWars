@@ -17,6 +17,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -87,6 +88,7 @@ public class CombatService {
             statsAPI.addModuleStat(target, game.getModuleInfo().getId(), "deaths", 1);
         }
 
+        dropResourcesAtLocation(target, deathLocation);
         target.getInventory().clear();
         sendDeathTitle(context, target, killer != null);
 
@@ -96,6 +98,36 @@ public class CombatService {
             context.eliminatePlayer(target, moduleConfig.getTranslation(target, "messages.eliminated"));
             game.checkForVictory(context);
         }
+    }
+
+    private void dropResourcesAtLocation(Player player, Location deathLocation) {
+        if (player == null || deathLocation == null || deathLocation.getWorld() == null) {
+            return;
+        }
+
+        PlayerInventory inventory = player.getInventory();
+        dropResources(deathLocation, inventory.getStorageContents());
+        dropResources(deathLocation, new ItemStack[]{inventory.getItemInOffHand()});
+    }
+
+    private void dropResources(Location location, ItemStack[] contents) {
+        if (contents == null || contents.length == 0) {
+            return;
+        }
+
+        for (ItemStack item : contents) {
+            if (item == null || item.getAmount() <= 0 || !isResource(item.getType())) {
+                continue;
+            }
+            location.getWorld().dropItemNaturally(location, item.clone());
+        }
+    }
+
+    private boolean isResource(Material material) {
+        return switch (material) {
+            case IRON_INGOT, GOLD_INGOT, DIAMOND, EMERALD -> true;
+            default -> false;
+        };
     }
 
     private void scheduleRespawn(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
