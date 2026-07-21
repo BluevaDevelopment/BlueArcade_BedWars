@@ -5,6 +5,7 @@ import net.blueva.arcade.api.game.GameContext;
 import net.blueva.arcade.api.team.TeamInfo;
 import net.blueva.arcade.api.team.TeamsAPI;
 import net.blueva.arcade.modules.bed_wars.game.BedWarsGame;
+import net.blueva.foundation.entities.Entities;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -200,7 +201,9 @@ public class SpecialItemHandler {
         event.setCancelled(true);
         Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation().add(0.5, 0, 0.5);
 
-        TNTPrimed tnt = (TNTPrimed) loc.getWorld().spawnEntity(loc, EntityType.PRIMED_TNT);
+        // EntityType.PRIMED_TNT was renamed to EntityType.TNT in 1.20.5
+        TNTPrimed tnt = Entities.spawn(loc, TNTPrimed.class, "TNT", "PRIMED_TNT");
+        if (tnt == null) return;
         tnt.setFuseTicks(moduleConfig.getInt("special_items.tnt.fuse_ticks", 40));
 
         consumeOneItem(player);
