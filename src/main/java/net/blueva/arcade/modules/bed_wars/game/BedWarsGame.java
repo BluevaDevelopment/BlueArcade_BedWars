@@ -385,6 +385,8 @@ public class BedWarsGame {
 
     public void healKiller(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player killer) { gameplayService.healKiller(context, killer); }
 
+    public void recordHit(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player victim, Player attacker) { gameplayService.recordHit(context, victim, attacker); }
+
     public void handleKill(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player attacker, Player victim) { gameplayService.handleKill(context, attacker, victim); }
 
     public void handleNonCombatDeath(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player victim) { gameplayService.handleNonCombatDeath(context, victim); }

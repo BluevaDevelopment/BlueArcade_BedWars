@@ -30,6 +30,8 @@ public class ArenaState {
     private final GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context;
     private final Map<UUID, Integer> playerKills = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> playerDeaths = new ConcurrentHashMap<>();
+    private final Map<UUID, UUID> lastHitBy = new ConcurrentHashMap<>();
+    private final Map<UUID, Long> lastHitAt = new ConcurrentHashMap<>();
     private final Map<String, Long> chestRefillTimes = new ConcurrentHashMap<>();
     private final Set<String> trackedChestKeys = ConcurrentHashMap.newKeySet();
     private final ArenaBlockData blocks = new ArenaBlockData();
@@ -106,6 +108,38 @@ public class ArenaState {
 
     public int getDeaths(UUID playerId) {
         return playerDeaths.getOrDefault(playerId, 0);
+    }
+
+    // Combat tag, so a player knocked into the void still credits whoever hit them last.
+    public void recordHit(UUID victimId, UUID attackerId) {
+        if (victimId == null || attackerId == null || victimId.equals(attackerId)) {
+            return;
+        }
+        lastHitBy.put(victimId, attackerId);
+        lastHitAt.put(victimId, System.currentTimeMillis());
+    }
+
+    public UUID getRecentAttacker(UUID victimId, long windowMillis) {
+        if (victimId == null) {
+            return null;
+        }
+        UUID attackerId = lastHitBy.get(victimId);
+        Long hitAt = lastHitAt.get(victimId);
+        if (attackerId == null || hitAt == null) {
+            return null;
+        }
+        if (System.currentTimeMillis() - hitAt > windowMillis) {
+            return null;
+        }
+        return attackerId;
+    }
+
+    public void clearCombatTag(UUID playerId) {
+        if (playerId == null) {
+            return;
+        }
+        lastHitBy.remove(playerId);
+        lastHitAt.remove(playerId);
     }
 
     public Map<UUID, Integer> getKillSnapshot() {

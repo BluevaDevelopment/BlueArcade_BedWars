@@ -18,6 +18,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.UUID;
+
 final class BedWarsGameplayService {
 
     private static final double CAGE_GUARD_MAX_DISTANCE_SQUARED = 2.25;
@@ -56,16 +58,67 @@ final class BedWarsGameplayService {
         context.getSoundsAPI().play(killer, game.coreConfig.getSound("sounds.in_game.respawn"));
     }
 
+    void recordHit(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                   Player victim,
+                   Player attacker) {
+        ArenaState state = game.getArenaState(context);
+        if (state == null || victim == null || attacker == null) {
+            return;
+        }
+        state.recordHit(victim.getUniqueId(), attacker.getUniqueId());
+    }
+
     void handleKill(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                     Player attacker,
                     Player victim) {
+        clearCombatTag(context, victim);
         game.combatService.handleKillCredit(context, attacker);
         game.combatService.handleElimination(context, victim, attacker);
     }
 
+    /**
+     * Falling, void and other environmental deaths still count as a kill when someone hit the
+     * victim shortly before: knocking an enemy off a bridge is a normal way to win a fight.
+     */
     void handleNonCombatDeath(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                               Player victim) {
+        Player killer = resolveRecentAttacker(context, victim);
+        if (killer != null) {
+            handleKill(context, killer, victim);
+            return;
+        }
+
+        clearCombatTag(context, victim);
         game.combatService.handleElimination(context, victim, null);
+    }
+
+    private Player resolveRecentAttacker(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                         Player victim) {
+        ArenaState state = game.getArenaState(context);
+        if (state == null || victim == null) {
+            return null;
+        }
+
+        long windowMillis = Math.max(0, game.moduleConfig.getInt("kills.credit_window_ticks", 200)) * 50L;
+        UUID attackerId = state.getRecentAttacker(victim.getUniqueId(), windowMillis);
+        if (attackerId == null) {
+            return null;
+        }
+
+        for (Player player : context.getPlayers()) {
+            if (player.getUniqueId().equals(attackerId) && context.isPlayerPlaying(player)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    private void clearCombatTag(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
+                                Player victim) {
+        ArenaState state = game.getArenaState(context);
+        if (state != null && victim != null) {
+            state.clearCombatTag(victim.getUniqueId());
+        }
     }
 
     boolean handleBedBreak(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
