@@ -41,6 +41,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
@@ -466,6 +467,29 @@ public class BedWarsListener implements Listener {
             }
             return !breakable;
         });
+    }
+
+    // Armor never wears out in BedWars, no matter where the piece came from.
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerItemDamage(PlayerItemDamageEvent event) {
+        Player player = event.getPlayer();
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context =
+                game.getContext(player);
+        if (context == null || !context.isPlayerPlaying(player)) {
+            return;
+        }
+
+        if (isArmor(event.getItem().getType())) {
+            event.setCancelled(true);
+        }
+    }
+
+    private boolean isArmor(Material material) {
+        String name = material.name();
+        return name.endsWith("_HELMET")
+                || name.endsWith("_CHESTPLATE")
+                || name.endsWith("_LEGGINGS")
+                || name.endsWith("_BOOTS");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
